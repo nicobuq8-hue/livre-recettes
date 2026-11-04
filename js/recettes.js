@@ -718,7 +718,7 @@ RECETTES.push(
 },
 {
   id: "pate-pizza-biga", titre: "Pâte à pizza sur biga", sousTitre: "12 pâtons d'environ 275 g · hydratation globale 60 %",
-  categorie: "Boulangerie", image: null,
+  categorie: "Boulangerie", image: "img/pate-pizza-biga.jpg",
   infos: { parts: "12 pâtons d'environ 275 g (réglable)", preparation: "J-3 à J-2", cuisson: "Au moment de faire la pizza", temperature: "Biga 16 à 24 h à 18-20 °C (ou 48 h au frigo)" },
   rendement: { valeur: 12, unite: "pâtons", uniteSing: "pâton", pas: 1, min: 1, aide: "Par pâton : 97,22 g de farine et 42,78 g d'eau pour la biga, 74,55 g de farine et 60 g d'eau pour la pâte (tableau « Quantité pate pizza sur BIGA »)." },
   ingredients: [

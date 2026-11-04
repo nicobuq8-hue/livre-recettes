@@ -1,5 +1,5 @@
 /* Service worker — généré par build-sw.py (ne pas modifier à la main) */
-const CACHE = "livre-recettes-fd66c555ba";
+const CACHE = "livre-recettes-6fc4977540";
 const ASSETS = [
   "./",
   "index.html",
@@ -29,6 +29,7 @@ const ASSETS = [
   "img/omelette-norvegienne.jpg",
   "img/paella-fernande.jpg",
   "img/pate-brisee.jpg",
+  "img/pate-pizza-biga.jpg",
   "img/polenta.jpg",
   "img/quenelles-poisson-nantua.jpg",
   "img/savarin-francoise.jpg",
