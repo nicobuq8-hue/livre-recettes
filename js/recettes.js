@@ -719,7 +719,7 @@ RECETTES.push(
 {
   id: "pate-pizza-biga", titre: "Pâte à pizza sur biga", sousTitre: "12 pâtons d'environ 275 g · hydratation globale 60 %",
   categorie: "Boulangerie", image: null,
-  infos: { parts: "12 pâtons d'environ 275 g (réglable)", preparation: "J-3 à J-2", cuisson: "Non indiquée", temperature: "Biga 16 à 24 h à 18-20 °C (ou 48 h au frigo)" },
+  infos: { parts: "12 pâtons d'environ 275 g (réglable)", preparation: "J-3 à J-2", cuisson: "Au moment de faire la pizza", temperature: "Biga 16 à 24 h à 18-20 °C (ou 48 h au frigo)" },
   rendement: { valeur: 12, unite: "pâtons", uniteSing: "pâton", pas: 1, min: 1, aide: "Par pâton : 97,22 g de farine et 42,78 g d'eau pour la biga, 74,55 g de farine et 60 g d'eau pour la pâte (tableau « Quantité pate pizza sur BIGA »)." },
   ingredients: [
     { g: "1. La biga (hydratation 44 %)" },
@@ -746,8 +746,7 @@ RECETTES.push(
     ["Ajouter l'huile", "Ajouter l'huile d'olive en filet tout en continuant à pétrir 2 à 3 minutes. La pâte doit être lisse, souple et légèrement collante."],
     ["Pointage", "Couvrir et laisser fermenter en masse 2 à 3 heures à 24-26 °C, jusqu'à ce que la pâte double presque."],
     ["Diviser et bouler", "Renverser sur un plan de travail légèrement fariné. Diviser en pâtons d'environ 275 g (12 pâtons pour la recette de base). Bouler serré en refermant bien en dessous, puis disposer dans une caisse huilée et couvrir hermétiquement."],
-    ["Apprêt final", "Laisser 6 à 12 heures à température ambiante, 20-22 °C, ou 24 à 48 heures au réfrigérateur à 4 °C. Dans ce dernier cas, sortir les pâtons 2 à 3 heures avant l'étalage pour qu'ils reviennent à température."],
-    ["Cuisson", "Non indiquée dans le tableau ni dans l'ancienne fiche."]
+    ["Apprêt final", "Laisser 6 à 12 heures à température ambiante, 20-22 °C, ou 24 à 48 heures au réfrigérateur à 4 °C. Dans ce dernier cas, sortir les pâtons 2 à 3 heures avant l'étalage pour qu'ils reviennent à température."]
   ]
 }
 );
