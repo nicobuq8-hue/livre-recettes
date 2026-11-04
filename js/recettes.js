@@ -128,7 +128,7 @@ RECETTES.push(
 },
 {
   id: "pate-campagne", titre: "Pâté de campagne", sousTitre: "terrine de porc, foie, cognac et lait aromatisé",
-  categorie: "Entrées", image: "img/pate-campagne.jpg",
+  categorie: "Entrées", image: "img/pate-campagne-rustique.jpg",
   infos: { parts: "1 kg de pâté · taille de terrine non indiquée", preparation: "Mise au sel 24 h la veille", cuisson: "Environ 10 min puis environ 4 h (stérilisation : 3 h)", temperature: "200 °C puis 90 °C au bain-marie · 74 °C à coeur" },
   rendement: { valeur: 1, unite: "kg de pâté", uniteSing: "kg de pâté", pas: 0.5, min: 0.5 },
   ingredients: [
