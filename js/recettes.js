@@ -125,6 +125,53 @@ RECETTES.push(
     ["Monter le gâteau", "Verser l'appareil dans le moule. Répartir les demi-rondelles de courgettes et les enfoncer dans la pâte afin de bien les enrober."],
     ["Cuire", "Préchauffer le four à 200 °C. Au moment d'enfourner, baisser la température à 180 °C et cuire pendant 45 à 50 minutes, jusqu'à ce que le gâteau soit pris et bien doré."]
   ]
+},
+{
+  id: "pate-campagne", titre: "Pâté de campagne", sousTitre: "terrine de porc, foie, cognac et lait aromatisé",
+  categorie: "Entrées", image: "img/pate-campagne.jpg",
+  infos: { parts: "1 kg de pâté · taille de terrine non indiquée", preparation: "Mise au sel 24 h la veille", cuisson: "Environ 10 min puis environ 4 h (stérilisation : 3 h)", temperature: "200 °C puis 90 °C au bain-marie · 74 °C à coeur" },
+  rendement: { valeur: 1, unite: "kg de pâté", uniteSing: "kg de pâté", pas: 0.5, min: 0.5 },
+  ingredients: [
+    { g: "Viande" },
+    { t: "250 g de foie de porc", q: 250, u: "g", l: "de foie de porc" },
+    { t: "750 g de gorge de porc + poitrine avec os", q: 750, u: "g", l: "de gorge de porc + poitrine avec os" },
+    { t: "Crépine et barde" },
+    { g: "Épicerie" },
+    { t: "12 g de sel fin", q: 12, u: "g", l: "de sel fin" },
+    { t: "10 g de sel nitrité", q: 10, u: "g", l: "de sel nitrité" },
+    { t: "3 g de poivre gris moulu", q: 3, u: "g", l: "de poivre gris moulu" },
+    { t: "1 g de 4 épices", q: 1, u: "g", l: "de 4 épices" },
+    { t: "Sucre (quantité non indiquée)" },
+    { t: "1 feuille de laurier", q: 1, l: "feuilles de laurier", sg: "feuille de laurier" },
+    { g: "Aromatisation" },
+    { t: "10 g d'ail", q: 10, u: "g", l: "d'ail" },
+    { t: "15 g d'échalotes", q: 15, u: "g", l: "d'échalotes" },
+    { t: "30 g d'oignons", q: 30, u: "g", l: "d'oignons" },
+    { t: "10 g de persil", q: 10, u: "g", l: "de persil" },
+    { g: "Crémerie" },
+    { t: "100 g de lait entier aromatisé (complété de crème fraîche)", q: 100, u: "g", l: "de lait entier aromatisé (complété de crème fraîche)" },
+    { t: "100 g d'oeufs entiers", q: 100, u: "g", l: "d'oeufs entiers" },
+    { g: "Lait aromatisé" },
+    { t: "1 carotte, 1 bouquet garni, 1 échalote, quelques os de la poitrine" },
+    { g: "Cave" },
+    { t: "250 g de vin blanc sec", q: 250, u: "g", l: "de vin blanc sec" },
+    { t: "10 g de cognac", q: 10, u: "g", l: "de cognac" }
+  ],
+  etapes: [
+    { g: "La veille" },
+    ["Découper", "Couper en gros dés les morceaux de porc et le foie. Garder les os de la poitrine."],
+    ["Mise au sel 24 h", "Bien mélanger les morceaux avec le sel, le sucre, le poivre, les 4 épices, le cognac et le vin blanc. Recouvrir d'un film alimentaire et garder au frais."],
+    ["Préparer le lait aromatisé", "Faire chauffer le lait avec 1 carotte, le bouquet garni, 1 échalote et quelques os de la poitrine pendant 15 minutes, puis laisser infuser jusqu'au lendemain."],
+    { g: "Le lendemain" },
+    ["Faire le gratin", "Ciseler les aromates. Graisser légèrement la poêle, prendre 10 % du foie et le faire cuire avec les aromates, sans coloration."],
+    ["Compléter le lait", "Tamiser le lait aromatisé, le peser et compléter avec de la crème fraîche pour obtenir 100 g."],
+    ["Hacher", "Hacher à la grille fine le foie et le gratin. Hacher à la grille grosse la gorge et la poitrine."],
+    ["Mélanger", "Bien mélanger pour obtenir une farce homogène, puis ajouter les oeufs et le lait aromatisé."],
+    ["Monter la terrine", "Barder la terrine et bien y tasser la préparation. Faire un quadrillage de barde sur le dessus, poser une feuille de laurier et recouvrir de crépine en la bordant bien sur tous les côtés."],
+    { g: "Cuisson" },
+    ["Cuire", "Enfourner à 200 °C pendant environ 10 minutes, puis à 90 °C pendant environ 4 heures au bain-marie. Le pâté est cuit quand il atteint 74 °C à coeur."],
+    ["Stérilisation (facultatif)", "Pour une stérilisation : 3 heures à 100 °C."]
+  ]
 }
 );
 
