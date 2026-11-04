@@ -13,7 +13,8 @@
  *       { g: "Titre de groupe" }   → intertitre
  *       Un ingrédient sans q n'est jamais recalculé (ex. « Sel et poivre »).
  *       À la quantité de base, c'est toujours le texte exact « t » qui s'affiche.
- *   etapes : [ ["Titre", "Texte"], ... ]
+ *   etapes : [ ["Titre", "Texte"], ... ]   ({ g: "Titre de partie" } → intertitre, numérotation repartant à 1)
+ *   ingrédient precis: true → arrondi au dixième de gramme (ex. levure)
  *   calcul : true → recette « calculateur » (quantités toujours calculées, règle de la fiche affichée en dessous)
  */
 window.RECETTES = [];
@@ -716,33 +717,37 @@ RECETTES.push(
   ]
 },
 {
-  id: "pate-pizza-biga", titre: "Pâte à pizza sur biga", sousTitre: "8 pâtons de 280 g",
+  id: "pate-pizza-biga", titre: "Pâte à pizza sur biga", sousTitre: "12 pâtons d'environ 275 g · hydratation globale 60 %",
   categorie: "Boulangerie", image: null,
-  infos: { parts: "8 pâtons de 280 g", preparation: "J-3 à J-2", cuisson: "Non indiquée", temperature: "Fermentation de 4 à 26 °C" },
-  rendement: { valeur: 8, unite: "pâtons de 280 g", uniteSing: "pâton de 280 g", pas: 1, min: 1 },
+  infos: { parts: "12 pâtons d'environ 275 g (réglable)", preparation: "J-3 à J-2", cuisson: "Non indiquée", temperature: "Biga 16 à 24 h à 18-20 °C (ou 48 h au frigo)" },
+  rendement: { valeur: 12, unite: "pâtons", uniteSing: "pâton", pas: 1, min: 1, aide: "Par pâton : 97,22 g de farine et 42,78 g d'eau pour la biga, 74,55 g de farine et 60 g d'eau pour la pâte (tableau « Quantité pate pizza sur BIGA »)." },
   ingredients: [
-    { g: "J-3" },
-    { t: "500 g d'eau froide", q: 500, u: "g", l: "d'eau froide" },
-    { t: "1 000 g de farine 00 ou T45", q: 1000, u: "g", l: "de farine 00 ou T45" },
-    { t: "1 g de levure sèche ou 3 g de levure fraîche", q: 1, u: "g", l: "de levure sèche", ou: { q: 3, u: "g", l: "de levure fraîche" } },
-    { g: "J-2" },
-    { t: "toute la biga" },
-    { t: "400 g de farine", q: 400, u: "g", l: "de farine" },
-    { t: "400 g d'eau tempérée, environ 20 °C", q: 400, u: "g", l: "d'eau tempérée, environ 20 °C" },
-    { t: "45 g de sel fin", q: 45, u: "g", l: "de sel fin" },
-    { t: "30 g d'huile d'olive", q: 30, u: "g", l: "d'huile d'olive" },
+    { g: "1. La biga (hydratation 44 %)" },
+    { t: "1 167 g de farine T00 ou T45", q: 1166.64, u: "g", l: "de farine T00 ou T45" },
+    { t: "513 g d'eau froide (sortie du frigo)", q: 513.36, u: "g", l: "d'eau froide (sortie du frigo)" },
+    { t: "3,1 g de levure sèche (0,15 % de la farine totale)", q: 3.09186, u: "g", precis: true, l: "de levure sèche (0,15 % de la farine totale)" },
+    { g: "2. La pâte (refresh final)" },
+    { t: "Toute la biga (environ 1 680 g)" },
+    { t: "895 g de farine T00 ou T45", q: 894.6, u: "g", l: "de farine T00 ou T45" },
+    { t: "720 g d'eau tempérée (20-22 °C)", q: 720, u: "g", l: "d'eau tempérée (20-22 °C)" },
+    { t: "56 g de sel fin (2,7 % de la farine totale)", q: 55.65348, u: "g", l: "de sel fin (2,7 % de la farine totale)" },
+    { t: "41 g d'huile d'olive extra vierge (2 % de la farine totale)", q: 41.2248, u: "g", l: "d'huile d'olive extra vierge (2 % de la farine totale)" },
     { g: "" },
-    { t: "Hydratation finale : 64 %" }
+    { t: "Taux de biga : 51 % de la masse farine + eau" },
+    { t: "Hydratation globale : 60 %" }
   ],
   etapes: [
-    ["J-3 - Mélanger la biga", "Émietter la levure dans l'eau froide et mélanger. Ajouter la farine en une fois. Mélanger à la cuillère ou 2 à 3 minutes à la main ou à la machine, jusqu'à obtenir une pâte grossière et sèche, non lisse."],
-    ["J-3 - Faire fermenter", "Couvrir et laisser fermenter 16 à 24 heures à 18-20 °C, ou 48 heures au réfrigérateur pour plus de goût. La biga doit tripler de volume et être pleine de bulles."],
-    ["J-2 - Commencer le pétrissage", "Mettre la biga maturée en morceaux dans le pétrin, ou travailler à la main. Ajouter les 400 g d'eau et commencer à mélanger pour dissoudre la biga. Ajouter progressivement les 400 g de farine."],
-    ["J-2 - Pétrir et assaisonner", "Pétrir 5 à 6 minutes en première vitesse. Quand la pâte commence à se former, ajouter le sel. Pétrir encore 4 à 6 minutes en deuxième vitesse jusqu'à obtenir un voile, test du gluten."],
-    ["J-2 - Ajouter l'huile", "Ajouter l'huile en filet tout en continuant à pétrir 2 à 3 minutes. La pâte doit être lisse, souple et légèrement collante."],
+    { g: "1. La biga" },
+    ["J-3 - Mélanger la biga", "Délayer la levure sèche dans l'eau froide sortie du frigo. Ajouter la farine de la biga en une fois. Mélanger à la cuillère ou 2 à 3 minutes à la main ou à la machine, jusqu'à obtenir une pâte grossière et sèche, non lisse (hydratation de 44 % seulement)."],
+    ["J-3 - Faire maturer", "Couvrir et laisser fermenter 16 à 24 heures à 18-20 °C, ou 48 heures au réfrigérateur pour plus de goût. La biga doit tripler de volume et être pleine de bulles."],
+    { g: "2. La pâte" },
+    ["J-2 - Dissoudre la biga", "Mettre la biga maturée en morceaux dans le pétrin, ou travailler à la main. Ajouter l'eau tempérée (20-22 °C) et commencer à mélanger pour dissoudre la biga. Ajouter progressivement la farine de la pâte."],
+    ["Pétrir et saler", "Pétrir 5 à 6 minutes en première vitesse. Quand la pâte commence à se former, ajouter le sel. Pétrir encore 4 à 6 minutes en deuxième vitesse jusqu'à obtenir un voile, test du gluten."],
+    ["Ajouter l'huile", "Ajouter l'huile d'olive en filet tout en continuant à pétrir 2 à 3 minutes. La pâte doit être lisse, souple et légèrement collante."],
     ["Pointage", "Couvrir et laisser fermenter en masse 2 à 3 heures à 24-26 °C, jusqu'à ce que la pâte double presque."],
-    ["Diviser et bouler", "Renverser sur un plan de travail légèrement fariné. Diviser en 8 pâtons de 280 g. Bouler serré en refermant bien en dessous, puis disposer dans une caisse huilée et couvrir hermétiquement."],
-    ["Apprêt final", "Laisser 6 à 12 heures à température ambiante, 20-22 °C, ou 24 à 48 heures au réfrigérateur à 4 °C. Dans ce dernier cas, sortir les pâtons 2 à 3 heures avant l'étalage pour qu'ils reviennent à température."]
+    ["Diviser et bouler", "Renverser sur un plan de travail légèrement fariné. Diviser en pâtons d'environ 275 g (12 pâtons pour la recette de base). Bouler serré en refermant bien en dessous, puis disposer dans une caisse huilée et couvrir hermétiquement."],
+    ["Apprêt final", "Laisser 6 à 12 heures à température ambiante, 20-22 °C, ou 24 à 48 heures au réfrigérateur à 4 °C. Dans ce dernier cas, sortir les pâtons 2 à 3 heures avant l'étalage pour qu'ils reviennent à température."],
+    ["Cuisson", "Non indiquée dans le tableau ni dans l'ancienne fiche."]
   ]
 }
 );

@@ -83,7 +83,7 @@
     if (f === 1 && !calcul && it.t) return esc(it.t);
     var u = it.u || "";
     precise = !!calcul;
-    var qt = qtyText(it.q, f, u);
+    var qt = it.precis ? (function (v) { v = Math.max(0.1, Math.round(v * 10) / 10); return { txt: fmtNum(v, u), max: v }; })(it.q * f) : qtyText(it.q, f, u);
     var label = (!u && it.sg && qt.max <= 1) ? it.sg : it.l;
     var html = (it.pre ? esc(it.pre) + " " : "") + "<b>" + qt.txt + (u ? " " + esc(u) : "") + "</b> " + esc(label);
     if (it.ou) {
@@ -204,9 +204,11 @@
       '<section class="box" id="qtybox"></section>' +
       '<h2 class="sec-title">Ingrédients</h2><ul class="ingredients" id="ings"></ul>' +
       '<h2 class="sec-title">Préparation</h2><ol class="steps">' +
-      r.etapes.map(function (s, i) {
-        return '<li class="step"><span class="step-num">' + (i + 1) + "</span><div><h3>" + esc(s[0]) + "</h3><p>" + esc(s[1]) + "</p></div></li>";
-      }).join("") + "</ol>" +
+      (function () { var n = 0; return r.etapes.map(function (s) {
+        if (!Array.isArray(s)) { n = 0; return '<li class="step-group">' + esc(s.g) + "</li>"; }
+        n++;
+        return '<li class="step"><span class="step-num">' + n + "</span><div><h3>" + esc(s[0]) + "</h3><p>" + esc(s[1]) + "</p></div></li>";
+      }).join(""); })() + "</ol>" +
       '<p class="source print-only">Mon livre de recettes</p>' +
       '<div class="spacer"></div></article>' +
       '<div class="sticky-back"><a href="#/">' + ICON.back + "Retour aux recettes</a></div>";
