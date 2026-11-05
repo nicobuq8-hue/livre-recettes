@@ -1,10 +1,11 @@
 /* Service worker — généré par build-sw.py (ne pas modifier à la main) */
-const CACHE = "livre-recettes-60f97fc015";
+const CACHE = "livre-recettes-89d1cd339c";
 const ASSETS = [
   "./",
   "index.html",
   "manifest.json",
   "css/style.css",
+  "js/ajout.js",
   "js/app.js",
   "js/recettes.js",
   "icons/apple-touch-icon.png",
@@ -37,7 +38,8 @@ const ASSETS = [
   "img/souffle-fromage.jpg",
   "img/tarte-citron-meringuee.jpg",
   "img/terrine-deux-poissons.jpg",
-  "img/terrine-saumon.jpg"
+  "img/terrine-saumon.jpg",
+  "data/recettes-ajoutees.json"
 ];
 
 self.addEventListener("install", (event) => {

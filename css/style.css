@@ -206,6 +206,74 @@ main { max-width: 760px; margin: 0 auto; outline: none; }
 .sticky-back a:active { background: var(--teal-dark); }
 .print-only { display: none; }
 
+/* ---------- ajout / modification d'une recette ---------- */
+.add-btn { width: 100%; margin-top: 12px; background: var(--amber); border-color: var(--amber); color: #fff; font-size: 1rem; }
+.add-btn:active { background: var(--amber-dark); }
+.btn.primary { background: var(--teal); border-color: var(--teal); color: #fff; }
+.btn.primary:active { background: var(--teal-dark); }
+.btn:disabled { opacity: .55; cursor: default; }
+.danger-text { color: #b3261e; }
+.form { padding-bottom: 8px; }
+.form-title { margin: 20px 16px 4px; font-size: 1.5rem; color: var(--teal-dark); }
+.intro { margin: 0 16px; }
+.form .box h2 { font-size: 1.08rem; }
+.hint.top { margin: -4px 0 12px; }
+.input {
+  display: block; width: 100%; min-width: 0; height: 46px; padding: 0 12px; margin: 0 0 12px;
+  border: 1.5px solid var(--line); border-radius: 12px; background: #fff;
+  font: inherit; font-size: 16px; /* évite le zoom auto sur iPhone */
+  outline: none; -webkit-appearance: none; appearance: none;
+}
+textarea.input { height: auto; min-height: 84px; padding: 10px 12px; line-height: 1.4; resize: vertical; }
+.input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(27,90,122,.15); }
+.cols2, .cols3 { display: grid; gap: 0 10px; }
+.cols2 { grid-template-columns: 1fr 1fr; }
+.cols3 { grid-template-columns: 1fr 1.5fr 1fr; }
+.cols2 > div, .cols3 > div { min-width: 0; }
+.rows { display: flex; flex-direction: column; gap: 10px; }
+.row { background: var(--bg); border-radius: 12px; padding: 8px; }
+.row .input { margin: 0; }
+.row-ing { display: grid; grid-template-columns: 76px 1fr 40px; gap: 6px; }
+.row-ing .wide { grid-column: 1 / -1; }
+.row-group { display: grid; grid-template-columns: 1fr 40px; gap: 6px; background: var(--amber-light); }
+.row-group .input { font-weight: 700; }
+.row-head { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+.row-head .input { flex: 1; }
+.row-step .step-num { width: 28px; height: 28px; font-size: .9rem; }
+.icon-btn {
+  flex: 0 0 auto; width: 40px; height: 46px; border: 0; border-radius: 10px; background: #fff;
+  color: var(--teal-dark); font-size: 1.2rem; font-weight: 700; cursor: pointer;
+}
+.icon-btn[data-act="del"] { color: #b3261e; }
+.icon-btn:active { background: var(--teal-light); }
+.row-step .icon-btn { width: 34px; }
+.actions.inline { padding: 12px 0 0; flex-wrap: wrap; }
+.photo-preview { margin-bottom: 10px; border-radius: 12px; overflow: hidden; background: var(--teal-light); }
+.photo-preview img { width: 100%; max-height: 260px; object-fit: cover; }
+.photo-preview .hint { padding: 10px; margin: 0; }
+.file-btn { position: relative; width: 100%; overflow: hidden; }
+.file-btn input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.form .danger-text.btn { margin-top: 8px; width: 100%; }
+.settings summary { cursor: pointer; font-weight: 750; color: var(--teal-dark); display: flex; align-items: center; justify-content: space-between; gap: 8px; list-style: none; }
+.settings summary::-webkit-details-marker { display: none; }
+.settings[open] summary { margin-bottom: 8px; }
+.badge { font-size: .72rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: var(--amber-light); color: #9a5b07; white-space: nowrap; }
+.badge.ok { background: #e3f4e8; color: #1e6b37; }
+.help { margin: 8px 0 12px; padding-left: 20px; font-size: .88rem; color: var(--ink); }
+.help li { margin-bottom: 5px; }
+.help a { color: var(--teal); overflow-wrap: anywhere; }
+.help code { background: var(--bg); padding: 1px 5px; border-radius: 5px; font-size: .85em; }
+.status { margin: 16px 16px 0; padding: 12px 14px; border-radius: 12px; font-weight: 600; background: var(--teal-light); color: var(--teal-dark); }
+.status.error { background: #fde8e6; color: #8c1d16; }
+.spinner { display: inline-block; width: 16px; height: 16px; margin-right: 8px; vertical-align: -3px; border: 2.5px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: tourne .8s linear infinite; }
+@keyframes tourne { to { transform: rotate(360deg); } }
+.form-submit { display: flex; flex-direction: column; gap: 10px; padding: 16px 16px 0; }
+.form-submit .btn { width: 100%; min-height: 52px; font-size: 1.05rem; }
+.done-box { padding: 40px 16px; text-align: center; }
+.done-icon { font-size: 3.2rem; }
+.done-box h1 { margin: 8px 0; color: var(--teal-dark); }
+.done-box p { margin: 6px 0; }
+
 /* ---------- impression / PDF ---------- */
 @media print {
   @page { margin: 14mm 14mm 16mm; }

@@ -22,6 +22,7 @@
       .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   }
   function byId(id) { for (var i = 0; i < RECETTES.length; i++) if (RECETTES[i].id === id) return RECETTES[i]; return null; }
+  function imageDe(r) { return r._apercu || r.image; } // _apercu : photo locale juste envoyée, en attente de publication
 
   var ICON = {
     clock: '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
@@ -130,8 +131,8 @@
   }
 
   function cardHTML(r) {
-    var img = r.image
-      ? '<img src="' + esc(r.image) + '" alt="" loading="lazy" decoding="async">'
+    var img = imageDe(r)
+      ? '<img src="' + esc(imageDe(r)) + '" alt="" loading="lazy" decoding="async"' + (r._ajout ? ' onerror="this.remove()"' : "") + '>'
       : '<div class="placeholder" aria-hidden="true">' + (EMOJI[r.categorie] || "🍽️") + "</div>";
     return '<a class="card" href="#/recette/' + esc(r.id) + '">' +
       '<div class="card-img">' + img + "</div>" +
@@ -145,32 +146,41 @@
   function renderHome() {
     document.title = "Mon livre de recettes";
     btnBack.hidden = true;
-    var cats = ["Toutes"].concat(CATEGORIES.filter(function (c) {
-      return RECETTES.some(function (r) { return r.categorie === c; });
-    }));
     app.innerHTML =
       '<section class="home-hero"><h1>Que voulez-vous cuisiner&nbsp;?</h1>' +
       '<label class="search">' + ICON.search +
       '<input id="q" type="search" inputmode="search" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Titre ou ingrédient…" aria-label="Rechercher une recette par titre ou ingrédient" value="' + esc(homeState.q) + '">' +
-      '<button class="clear" id="clear" type="button" aria-label="Effacer la recherche"' + (homeState.q ? "" : " hidden") + '>×</button></label></section>' +
-      '<nav class="chips" aria-label="Catégories">' + cats.map(function (c) {
-        return '<button class="chip" type="button" data-cat="' + esc(c) + '" aria-pressed="' + (c === homeState.cat) + '">' + esc(c) + "</button>";
-      }).join("") + "</nav>" +
+      '<button class="clear" id="clear" type="button" aria-label="Effacer la recherche"' + (homeState.q ? "" : " hidden") + '>×</button></label>' +
+      '<a class="btn add-btn" href="#/ajouter"><span aria-hidden="true">＋</span> Ajouter une recette</a></section>' +
+      '<nav class="chips" id="chips" aria-label="Catégories"></nav>' +
       '<p class="count" id="count" aria-live="polite"></p><div class="grid" id="grid"></div>';
 
     var input = document.getElementById("q"), clear = document.getElementById("clear");
     input.addEventListener("input", function () { homeState.q = input.value; clear.hidden = !input.value; renderList(); });
     input.addEventListener("keydown", function (e) { if (e.key === "Enter") input.blur(); });
     clear.addEventListener("click", function () { homeState.q = ""; input.value = ""; clear.hidden = true; renderList(); input.focus(); });
-    app.querySelectorAll(".chip").forEach(function (b) {
+    renderChips();
+    renderList();
+    window.scrollTo(0, homeState.scroll || 0);
+  }
+
+  function renderChips() {
+    var cats = ["Toutes"].concat(CATEGORIES.filter(function (c) {
+      return RECETTES.some(function (r) { return r.categorie === c; });
+    }));
+    RECETTES.forEach(function (r) { if (cats.indexOf(r.categorie) === -1) cats.push(r.categorie); }); // catégories nouvelles
+    if (cats.indexOf(homeState.cat) === -1) homeState.cat = "Toutes";
+    var nav = document.getElementById("chips");
+    nav.innerHTML = cats.map(function (c) {
+      return '<button class="chip" type="button" data-cat="' + esc(c) + '" aria-pressed="' + (c === homeState.cat) + '">' + esc(c) + "</button>";
+    }).join("");
+    nav.querySelectorAll(".chip").forEach(function (b) {
       b.addEventListener("click", function () {
         homeState.cat = b.getAttribute("data-cat");
-        app.querySelectorAll(".chip").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+        nav.querySelectorAll(".chip").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
         renderList();
       });
     });
-    renderList();
-    window.scrollTo(0, homeState.scroll || 0);
   }
 
   function renderList() {
@@ -188,8 +198,8 @@
     document.title = r.titre + " · Mon livre de recettes";
     btnBack.hidden = false;
     var st = getState(r);
-    var img = r.image
-      ? '<img src="' + esc(r.image) + '" alt="' + esc(r.titre) + '">'
+    var img = imageDe(r)
+      ? '<img src="' + esc(imageDe(r)) + '" alt="' + esc(r.titre) + '"' + (r._ajout ? ' onerror="this.remove()"' : "") + '>'
       : '<div class="placeholder" aria-hidden="true">' + (EMOJI[r.categorie] || "🍽️") + "</div>";
     var canShare = !!navigator.share;
 
@@ -200,6 +210,8 @@
       '<div class="actions">' +
       (canShare ? '<button class="btn flex" id="share" type="button">' + ICON.share + "Partager</button>" : "") +
       '<button class="btn flex" id="print" type="button">' + ICON.print + "PDF / Imprimer</button></div>" +
+      (r._ajout ? '<div class="actions no-print"><a class="btn flex" href="#/modifier/' + esc(r.id) + '">✏️ Modifier</a>' +
+        '<button class="btn flex danger-text" id="suppr" type="button">🗑️ Supprimer</button></div>' : "") +
       '<div class="tiles" id="tiles"></div>' +
       '<section class="box" id="qtybox"></section>' +
       '<h2 class="sec-title">Ingrédients</h2><ul class="ingredients" id="ings"></ul>' +
@@ -214,6 +226,16 @@
       '<div class="sticky-back"><a href="#/">' + ICON.back + "Retour aux recettes</a></div>";
 
     document.getElementById("print").addEventListener("click", function () { window.print(); });
+    var suppr = document.getElementById("suppr");
+    if (suppr) suppr.addEventListener("click", function () {
+      suppr.disabled = true; suppr.textContent = "Suppression…";
+      window.Ajout.supprimer(r).then(function (ok) {
+        if (!ok) { suppr.disabled = false; suppr.textContent = "🗑️ Supprimer"; return; }
+        retirer(r.id);
+        alert("Recette supprimée. Elle disparaîtra du livre de tout le monde d'ici 1 à 2 minutes.");
+        location.hash = "#/";
+      });
+    });
     if (canShare) document.getElementById("share").addEventListener("click", function () {
       navigator.share({ title: r.titre, text: r.titre + " – " + r.sousTitre, url: location.href }).catch(function () {});
     });
@@ -292,12 +314,61 @@
     return '<div class="tile"><div class="tile-label">' + icon + esc(label) + '</div><div class="tile-value">' + esc(value) + "</div></div>";
   }
 
+  /* ---------------- recettes ajoutées depuis le téléphone (data/recettes-ajoutees.json) ---------------- */
+  function integrer(rec, apercu) { // ajoute ou remplace une recette ajoutée dans la liste en mémoire
+    rec._ajout = true;
+    if (apercu) rec._apercu = apercu;
+    for (var i = 0; i < RECETTES.length; i++) {
+      if (RECETTES[i].id === rec.id) {
+        if (!RECETTES[i]._ajout) return; // une recette intégrée n'est jamais remplacée
+        if (!apercu && RECETTES[i]._apercu && RECETTES[i].image === rec.image) rec._apercu = RECETTES[i]._apercu;
+        RECETTES[i] = rec; delete recState[rec.id]; return;
+      }
+    }
+    RECETTES.push(rec);
+  }
+  function retirer(id) {
+    for (var i = 0; i < RECETTES.length; i++) if (RECETTES[i].id === id && RECETTES[i]._ajout) { RECETTES.splice(i, 1); return; }
+  }
+  function valide(r) {
+    return r && typeof r.id === "string" && r.titre && r.rendement && r.rendement.valeur > 0 && Array.isArray(r.ingredients) && Array.isArray(r.etapes);
+  }
+  function chargerAjouts() {
+    if (!window.fetch) return;
+    fetch(window.Ajout.FICHIER, { cache: "no-store" })
+      .then(function (res) { if (!res.ok) throw new Error(res.status); return res.json(); })
+      .catch(function () { return null; }) // hors ligne ou fichier absent : les recettes intégrées suffisent
+      .then(function (liste) {
+        var att = window.Ajout.attente(), ids = {};
+        (Array.isArray(liste) ? liste : []).forEach(function (r) {
+          if (!valide(r) || att.suppr[r.id]) return;
+          r.infos = r.infos || {}; r.sousTitre = r.sousTitre || "";
+          ids[r.id] = 1; integrer(r);
+        });
+        // envoyées depuis ce téléphone il y a peu, pas encore publiées par GitHub Pages
+        Object.keys(att.ajouts).forEach(function (id) { if (valide(att.ajouts[id])) integrer(att.ajouts[id]); });
+        Object.keys(att.suppr).forEach(retirer);
+        if (lastRoute === "home") {
+          if (/^#\/(recette|modifier)\//.test(location.hash)) route(); else { renderChips(); renderList(); }
+        }
+      });
+  }
+
   /* ---------------- routeur ---------------- */
   var lastRoute = "";
   function route() {
     var h = location.hash || "#/";
-    var m = h.match(/^#\/recette\/([\w-]+)(?:\?(.*))?/);
     if (lastRoute === "home") homeState.scroll = window.scrollY;
+    if (h === "#/ajouter" || /^#\/modifier\//.test(h)) {
+      var mod = h.match(/^#\/modifier\/([\w-]+)/), rm = mod && byId(mod[1]);
+      if (!mod || (rm && rm._ajout)) {
+        lastRoute = "form"; btnBack.hidden = false;
+        window.Ajout.renderForm(app, rm || null);
+        window.scrollTo(0, 0);
+        return;
+      }
+    }
+    var m = h.match(/^#\/recette\/([\w-]+)(?:\?(.*))?/);
     if (m && byId(m[1])) {
       var r = byId(m[1]);
       if (m[2]) { // ex. #/recette/buns?format=mini&n=20
@@ -313,9 +384,14 @@
     }
     else { lastRoute = "home"; renderHome(); }
   }
-  btnBack.addEventListener("click", function () { location.hash = "#/"; });
+  btnBack.addEventListener("click", function () {
+    var m = location.hash.match(/^#\/modifier\/([\w-]+)/);
+    location.hash = m ? "#/recette/" + m[1] : "#/";
+  });
   window.addEventListener("hashchange", route);
+  window.Ajout.init({ esc: esc, norm: norm, byId: byId, recettes: RECETTES, categories: CATEGORIES, route: route, integrer: integrer });
   route();
+  chargerAjouts();
 
   /* ---------------- hors ligne ---------------- */
   if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
