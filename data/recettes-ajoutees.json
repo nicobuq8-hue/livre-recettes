@@ -1,1 +1,93 @@
-[]
+[
+  {
+    "id": "navettes",
+    "titre": "Navettes",
+    "sousTitre": "",
+    "categorie": "Boulangerie",
+    "image": "img/ajout-navettes.jpg",
+    "infos": {
+      "parts": "45 pièces",
+      "preparation": "Non précisé",
+      "cuisson": "12 min",
+      "temperature": "210 °C (chaleur tournante)"
+    },
+    "rendement": {
+      "valeur": 45,
+      "unite": "pièces",
+      "uniteSing": "pièce",
+      "pas": 1,
+      "min": 1
+    },
+    "ingredients": [
+      {
+        "t": "500 g de farine T45",
+        "q": 500,
+        "u": "g",
+        "l": "de farine T45"
+      },
+      {
+        "t": "200 g de lait tiède",
+        "q": 200,
+        "u": "g",
+        "l": "de lait tiède"
+      },
+      {
+        "t": "10 cl d’eau",
+        "q": 10,
+        "u": "cl",
+        "l": "d’eau"
+      },
+      {
+        "t": "75 g de beurre demi sel",
+        "q": 75,
+        "u": "g",
+        "l": "de beurre demi sel"
+      },
+      {
+        "t": "20 g de sucre en poudre",
+        "q": 20,
+        "u": "g",
+        "l": "de sucre en poudre"
+      },
+      {
+        "t": "9 g de sel fin",
+        "q": 9,
+        "u": "g",
+        "l": "de sel fin"
+      },
+      {
+        "t": "7 sachet de levure de boulanger déshydratée",
+        "q": 7,
+        "u": "sachet",
+        "l": "de levure de boulanger déshydratée"
+      },
+      {
+        "t": "1 œuf pour la dorure",
+        "q": 1,
+        "l": "œuf pour la dorure"
+      }
+    ],
+    "etapes": [
+      [
+        "Préparer la pâte",
+        "Dans le bol du robot, mettez la farine, la levure, le sucre et le sel. Ajouter le lait et 10cl d’eau. Pétrissez environ 3 min jusqu’à obtenir une boule de pâte."
+      ],
+      [
+        "Incorporer le beurre",
+        "Ajoutez le beurre petit à petit et pétrissez 10 min, jusqu’à ce que la pâte soit bien lisse."
+      ],
+      [
+        "Laisser lever",
+        "Couvrez la pâte avec un torchon propre et laissez la doubler de volume (environ 1h30)."
+      ],
+      [
+        "Façonner les navettes",
+        "Sur un plan de travail fariné, versez la pâte et dégazer là. Coupez des petits pâtons de 20 g et formez des petits pains ronds ou ovales. Déposez les sur une plaque recouverte de papier sulfurisé et laissez de nouveau pousser 30 min."
+      ],
+      [
+        "Cuisson",
+        "Préchauffez le four à 210° chaleur tournante. Dorer les navettes à l’aide d’un pinceau et enfournez environ 12 min, sur le niveau bas, jusqu’à ce qu’elles soient bien dorées laisser refroidir et garnir."
+      ]
+    ]
+  }
+]
