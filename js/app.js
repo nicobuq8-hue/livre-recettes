@@ -248,6 +248,7 @@
       '<div class="stepper"><button type="button" id="minus" aria-label="Moins"' + (st.value - rd.pas < rd.min - 1e-9 ? " disabled" : "") + ">−</button>" +
       '<div class="stepper-value" aria-live="polite"><strong>' + fmtNum(st.value, rd.pas < 1 ? "" : "g") + "</strong><span>" + esc(unit) + "</span></div>" +
       '<button type="button" id="plus" aria-label="Plus">+</button></div>';
+    if (rd.masseTotale) html += '<p class="hint">Masse totale calculée : <strong>' + fmtNum(Math.round(st.value * rd.masseTotale) / 1000, "") + " kg</strong></p>";
     if (rd.aide) html += '<p class="hint">' + esc(rd.aide) + "</p>";
     if (fmt.note) html += '<p class="hint">' + esc(fmt.note) + "</p>";
     if (Math.abs(f - 1) > 1e-9) {

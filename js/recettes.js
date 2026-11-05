@@ -350,7 +350,7 @@ RECETTES.push(
   id: "boudin-blanc", titre: "Boudin blanc", sousTitre: "calculateur d'après le classeur de pesée",
   categorie: "Plats", image: "img/boudin-blanc.jpg", calcul: true,
   infos: { parts: "Environ 2 kg de préparation · 16 boudins de 125 g pour 1 kg de viande", preparation: "Non précisé", cuisson: "15 à 20 min", temperature: "Pochage 75-85 °C" },
-  rendement: { valeur: 1000, unite: "g de viande au total", uniteSing: "g de viande au total", pas: 100, min: 100, libelle: "Masse de viande", aide: "Taux du classeur « Pesee boudin saucisses » (feuille Boudin blanc). Farce : % de la masse de viande. Épicerie : % de la masse totale (viande + mie + lait + œufs, soit 1,98 kg pour 1 kg de viande). Boyaux : environ 15 cm par boudin." },
+  rendement: { valeur: 1000, unite: "g de viande au total", uniteSing: "g de viande au total", pas: 100, min: 100, libelle: "Masse de viande", masseTotale: 1.98 },
   ingredients: [
     { g: "Viande" },
     { t: "Maigre 75 % : épaule de veau, poitrine de porc ou volaille", q: 750, u: "g", l: "de maigre (épaule de veau, poitrine de porc ou volaille)" },
@@ -369,7 +369,7 @@ RECETTES.push(
     { t: "Noix de muscade : 0,1 % — optionnelle", q: 1.98, u: "g", precis: true, l: "de noix de muscade — optionnelle" },
     { t: "Porto blanc, cognac ou madère : 0,25 % — optionnel", q: 4.95, u: "cl", l: "de porto blanc, cognac ou madère — optionnel" },
     { t: "Truffe : minimum 3 % pour l'appellation truffée — optionnelle", q: 59.4, u: "g", l: "de truffe au minimum — optionnelle, pour l'appellation truffée" },
-    { t: "Boyaux : environ 15 cm par boudin de 125 g de préparation" }
+    { t: "Boyaux", q: 2.38, u: "m", l: "de boyau (environ 15 cm par boudin de 125 g)" }
   ],
   etapes: [
     ["Infuser le lait", "La veille ou le jour même, mettre le lait dans une casserole avec les carottes et les oignons coupés en gros morceaux ainsi que le bouquet garni. Porter juste à ébullition, puis laisser infuser 10 à 15 minutes à feu doux. Filtrer, puis peser le lait filtré afin de calculer la quantité de crème à ajouter. Laisser tiédir, idéalement autour de 50-60 °C."],
