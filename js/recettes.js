@@ -775,7 +775,7 @@ RECETTES.push(
     { t: "513 g d'eau froide (sortie du frigo)", q: 513.36, u: "g", l: "d'eau froide (sortie du frigo)" },
     { t: "3,1 g de levure sèche (0,15 % de la farine totale)", q: 3.09186, u: "g", precis: true, l: "de levure sèche (0,15 % de la farine totale)" },
     { g: "2. La pâte (refresh final)" },
-    { t: "Toute la biga (environ 1 680 g)" },
+    { t: "Toute la biga" },
     { t: "895 g de farine T00 ou T45", q: 894.6, u: "g", l: "de farine T00 ou T45" },
     { t: "720 g d'eau tempérée (20-22 °C)", q: 720, u: "g", l: "d'eau tempérée (20-22 °C)" },
     { t: "56 g de sel fin (2,7 % de la farine totale)", q: 55.65348, u: "g", l: "de sel fin (2,7 % de la farine totale)" },
