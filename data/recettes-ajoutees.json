@@ -6,8 +6,8 @@
     "categorie": "Boulangerie",
     "image": "img/ajout-navettes.jpg",
     "infos": {
-      "parts": "45 pièces",
-      "preparation": "Non précisé",
+      "parts": "45",
+      "preparation": "1 hpp",
       "cuisson": "12 min",
       "temperature": "210 °C (chaleur tournante)"
     },
