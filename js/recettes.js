@@ -350,7 +350,7 @@ RECETTES.push(
   id: "boudin-blanc", titre: "Boudin blanc", sousTitre: "calculateur d'après le classeur de pesée",
   categorie: "Plats", image: "img/boudin-blanc.jpg", calcul: true,
   infos: { parts: "Environ 2 kg de préparation · 16 boudins de 125 g pour 1 kg de viande", preparation: "Non précisé", cuisson: "15 à 20 min", temperature: "Pochage 75-85 °C" },
-  rendement: { valeur: 1000, unite: "g de viande au total", uniteSing: "g de viande au total", pas: 100, min: 100, libelle: "Masse de viande", masseTotale: 1.98 },
+  rendement: { valeur: 1980, depart: 2000, unite: "g de boudin au total", uniteSing: "g de boudin au total", pas: 250, min: 500, libelle: "Quantité de boudin à préparer", masseViande: 1.98 },
   ingredients: [
     { g: "Viande" },
     { t: "Maigre 75 % : épaule de veau, poitrine de porc ou volaille", q: 750, u: "g", l: "de maigre (épaule de veau, poitrine de porc ou volaille)" },

@@ -112,7 +112,7 @@
   function getState(r) {
     if (!recState[r.id]) {
       var fmt = r.formats ? r.formats[0] : null;
-      recState[r.id] = { format: fmt ? fmt.id : null, value: (fmt ? fmt.rendement : r.rendement).valeur, done: {} };
+      recState[r.id] = { format: fmt ? fmt.id : null, value: (function(x){return x.depart||x.valeur;})(fmt ? fmt.rendement : r.rendement), done: {} };
     }
     return recState[r.id];
   }
@@ -248,10 +248,10 @@
       '<div class="stepper"><button type="button" id="minus" aria-label="Moins"' + (st.value - rd.pas < rd.min - 1e-9 ? " disabled" : "") + ">−</button>" +
       '<div class="stepper-value" aria-live="polite"><strong>' + fmtNum(st.value, rd.pas < 1 ? "" : "g") + "</strong><span>" + esc(unit) + "</span></div>" +
       '<button type="button" id="plus" aria-label="Plus">+</button></div>';
-    if (rd.masseTotale) html += '<p class="hint">Masse totale calculée : <strong>' + fmtNum(Math.round(st.value * rd.masseTotale) / 1000, "") + " kg</strong></p>";
+    if (rd.masseViande) html += '<p class="hint">Masse de viande : <strong>' + fmtNum(Math.round(st.value / rd.masseViande), "g") + " g</strong> (les calculs se font sur cette masse)</p>";
     if (rd.aide) html += '<p class="hint">' + esc(rd.aide) + "</p>";
     if (fmt.note) html += '<p class="hint">' + esc(fmt.note) + "</p>";
-    if (Math.abs(f - 1) > 1e-9) {
+    if (Math.abs(st.value - (rd.depart || rd.valeur)) > 1e-9) {
       html += '<p class="hint warn">Quantités recalculées (×' + fmtNum(Math.round(f * 100) / 100, "g") + "). Les quantités citées dans les étapes correspondent à la recette d'origine.</p>" +
         '<button class="reset no-print" type="button" id="reset">Revenir à la recette d\'origine</button>';
     }
@@ -261,13 +261,13 @@
     var sel = document.getElementById("fmt");
     if (sel) sel.addEventListener("change", function () {
       st.format = sel.value; st.done = {};
-      st.value = currentFormat(r, st).rendement.valeur;
+      st.value = (currentFormat(r, st).rendement.depart || currentFormat(r, st).rendement.valeur);
       renderDynamic(r);
     });
     document.getElementById("minus").addEventListener("click", function () { st.value = Math.max(rd.min, +(st.value - rd.pas).toFixed(2)); renderDynamic(r); });
     document.getElementById("plus").addEventListener("click", function () { st.value = +(st.value + rd.pas).toFixed(2); renderDynamic(r); });
     var reset = document.getElementById("reset");
-    if (reset) reset.addEventListener("click", function () { st.value = rd.valeur; renderDynamic(r); });
+    if (reset) reset.addEventListener("click", function () { st.value = rd.depart || rd.valeur; renderDynamic(r); });
 
     // ingrédients
     var ul = document.getElementById("ings");
@@ -304,7 +304,7 @@
         var st = getState(r), params = {};
         m[2].split("&").forEach(function (kv) { var p = kv.split("="); params[p[0]] = decodeURIComponent(p[1] || ""); });
         if (params.format && r.formats && r.formats.some(function (x) { return x.id === params.format; })) {
-          st.format = params.format; st.value = currentFormat(r, st).rendement.valeur;
+          st.format = params.format; st.value = (currentFormat(r, st).rendement.depart || currentFormat(r, st).rendement.valeur);
         }
         var nv = parseFloat(String(params.n || "").replace(",", "."));
         if (nv > 0) st.value = nv;
