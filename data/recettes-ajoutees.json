@@ -1,15 +1,15 @@
 [
   {
     "id": "navettes",
-    "titre": "Navettes",
+    "titre": "Navettes apéritives moelleuses à garnir",
     "sousTitre": "",
-    "categorie": "Boulangerie",
+    "categorie": "Entrées",
     "image": "img/ajout-navettes.jpg",
     "infos": {
-      "parts": "45",
-      "preparation": "1 h",
+      "parts": "environ 45 pièces",
+      "preparation": "Non précisé",
       "cuisson": "12 min",
-      "temperature": "210 °C (chaleur tournante)"
+      "temperature": "200 °C"
     },
     "rendement": {
       "valeur": 45,
@@ -20,10 +20,10 @@
     },
     "ingredients": [
       {
-        "t": "500 g de farine T45",
+        "t": "500 g de farine T45 (de préférence)",
         "q": 500,
         "u": "g",
-        "l": "de farine T45"
+        "l": "de farine T45 (de préférence)"
       },
       {
         "t": "200 g de lait tiède",
@@ -32,61 +32,74 @@
         "l": "de lait tiède"
       },
       {
-        "t": "100 g d’eau",
+        "t": "100 g d’eau tiède",
         "q": 100,
         "u": "g",
-        "l": "d’eau"
+        "l": "d’eau tiède"
       },
       {
-        "t": "75 g de beurre demi sel",
-        "q": 75,
+        "t": "5 g de levure boulangère déshydratée de 5 g (ou 15 g de levure fraîche)",
+        "q": 5,
         "u": "g",
-        "l": "de beurre demi sel"
+        "l": "de levure boulangère déshydratée de 5 g (ou 15 g de levure fraîche)"
       },
       {
-        "t": "20 g de sucre en poudre",
+        "t": "20 g de sucre",
         "q": 20,
         "u": "g",
-        "l": "de sucre en poudre"
+        "l": "de sucre"
       },
       {
-        "t": "10 g de sel fin",
+        "t": "10 g de sel",
         "q": 10,
         "u": "g",
-        "l": "de sel fin"
+        "l": "de sel"
       },
       {
-        "t": "7 g de levure de boulanger déshydratée",
-        "q": 7,
+        "t": "75 g de beurre mou (doux ou demi-sel)",
+        "q": 75,
         "u": "g",
-        "l": "de levure de boulanger déshydratée"
+        "l": "de beurre mou (doux ou demi-sel)"
       },
       {
-        "t": "1 œuf pour la dorure",
+        "g": "Dorure"
+      },
+      {
+        "t": "1 jaune d’œuf",
         "q": 1,
-        "l": "œuf pour la dorure"
+        "l": "jaune d’œuf"
+      },
+      {
+        "t": "un trait de lait ou d’eau"
+      },
+      {
+        "t": "Graines de sésame, de pavot ou de nigelle (optionnel)"
       }
     ],
     "etapes": [
       [
-        "Préparer la pâte",
-        "Dans le bol du robot, mettez la farine, la levure, le sucre et le sel. Ajouter le lait et 10cl d’eau. Pétrissez environ 3 min jusqu’à obtenir une boule de pâte."
+        "Le mélange",
+        "Dans un saladier ou la cuve du robot, mélangez le lait tiède, l’eau tiède, la levure boulangère et le sucre. Laissez reposer 5 minutes."
       ],
       [
-        "Incorporer le beurre",
-        "Ajoutez le beurre petit à petit et pétrissez 10 min, jusqu’à ce que la pâte soit bien lisse."
+        "Le pétrissage",
+        "Ajoutez la farine et le sel, puis commencez à pétrir. Incorporez le beurre mou petit à petit tout en pétrissant pendant environ 8 à 10 minutes jusqu’à l’obtention d’une pâte lisse, souple et homogène."
       ],
       [
-        "Laisser lever",
-        "Couvrez la pâte avec un torchon propre et laissez la doubler de volume (environ 1h30)."
+        "Première pousse",
+        "Formez une boule, placez-la dans un saladier recouvert d’un torchon propre et laissez lever pendant 1h à 1h30 dans un endroit tiède (jusqu’à ce qu’elle double de volume)."
       ],
       [
-        "Façonner les navettes",
-        "Sur un plan de travail fariné, versez la pâte et dégazer là. Coupez des petits pâtons de 20 g et formez des petits pains ronds ou ovales. Déposez les sur une plaque recouverte de papier sulfurisé et laissez de nouveau pousser 30 min."
+        "Le façonnage",
+        "Dégagez la pâte en l’écrasant doucement pour chasser l’air. Divisez-la en petits pâtons d’environ 20 g chacun (vous en aurez autour de 45). Roulez chaque morceau en forme de petit fuseau/navette aux extrémités légèrement pointues."
       ],
       [
-        "Cuisson",
-        "Préchauffez le four à 210° chaleur tournante. Dorer les navettes à l’aide d’un pinceau et enfournez environ 12 min, sur le niveau bas, jusqu’à ce qu’elles soient bien dorées laisser refroidir et garnir."
+        "Deuxième pousse",
+        "Disposez-les sur une plaque recouverte de papier sulfurisé, recouvrez d’un linge et laissez pousser à nouveau pendant 30 à 45 minutes."
+      ],
+      [
+        "La cuisson",
+        "Préchauffez votre four à 200°C. Badigeonnez délicatement les navettes avec le jaune d’œuf battu et parsemez de graines si vous le souhaitez. Enfournez pour 12 minutes environ (surveillez bien pour qu’elles restent moelleuses et pas trop cuites). Laissez refroidir sur une grille."
       ]
     ]
   }
