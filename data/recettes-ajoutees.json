@@ -32,9 +32,9 @@
         "l": "de lait tiède"
       },
       {
-        "t": "10 cl d’eau",
-        "q": 10,
-        "u": "cl",
+        "t": "100 g d’eau",
+        "q": 100,
+        "u": "g",
         "l": "d’eau"
       },
       {
@@ -50,15 +50,15 @@
         "l": "de sucre en poudre"
       },
       {
-        "t": "9 g de sel fin",
-        "q": 9,
+        "t": "10 g de sel fin",
+        "q": 10,
         "u": "g",
         "l": "de sel fin"
       },
       {
-        "t": "7 sachet de levure de boulanger déshydratée",
+        "t": "7 g de levure de boulanger déshydratée",
         "q": 7,
-        "u": "sachet",
+        "u": "g",
         "l": "de levure de boulanger déshydratée"
       },
       {
