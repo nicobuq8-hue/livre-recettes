@@ -26,6 +26,17 @@ du formulaire et gardé uniquement dans le téléphone (localStorage, jamais dan
 github.com/settings/personal-access-tokens/new → Repository access : *Only select repositories* →
 `nicobuq8-hue/livre-recettes` → Permissions : *Contents : Read and write* → Generate token.
 
+### Importer depuis une IA
+En haut du formulaire, bloc « Importer depuis une IA » :
+1. « 📋 Copier la consigne pour l'IA » copie une consigne prête à l'emploi (texte dans `CONSIGNE_IA`, `js/ajout.js`).
+2. Coller la consigne dans ChatGPT, Gemini, Grok, Claude…, ajouter la photo (magazine, fiche manuscrite) ou le texte de la recette.
+3. Copier la réponse de l'IA dans « Colle ici la réponse de l'IA » → « Remplir le formulaire ». Vérifier, puis envoyer.
+
+L'IA répond en JSON simple : `titre`, `sousTitre`, `categorie`, `infos {parts, preparation, cuisson, temperature}`,
+`rendement {valeur, unite}`, `ingredients [{groupe} | {quantite, unite, libelle}]`, `etapes [{titre, texte}]`.
+La lecture est tolérante (```json et texte autour, « 1,5 », « 1/2 », clés avec accents ou en anglais, format interne
+`t/q/u/l` de `recettes.js`). Rien n'est envoyé automatiquement.
+
 ## Ajouter une recette à la main
 1. Copier un bloc dans `js/recettes.js` et l'adapter (quantité `q`, unité `u`, libellé `l`, texte exact `t`).
 2. Ajouter la photo dans `img/` (format 16:9 conseillé, ~960 px de large).

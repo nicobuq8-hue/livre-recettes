@@ -165,6 +165,188 @@
     });
   }
 
+  /* ---------------- import depuis une IA (ChatGPT, Gemini, Grok, Claude…) ---------------- */
+  var CONSIGNE_IA = [
+    "Tu es un assistant de cuisine. Lis la recette que je joins (photo d'un magazine, d'un livre, d'une fiche manuscrite, ou texte copié) et retranscris-la pour mon livre de recettes.",
+    "",
+    "Réponds UNIQUEMENT avec un bloc JSON valide, sans aucun texte avant ou après, exactement dans ce format :",
+    "",
+    "{",
+    '  "titre": "Tarte aux pommes",',
+    '  "sousTitre": "pâte brisée maison",',
+    '  "categorie": "Desserts",',
+    '  "infos": { "parts": "6 personnes", "preparation": "20 min", "cuisson": "35 min", "temperature": "180 °C" },',
+    '  "rendement": { "valeur": 6, "unite": "personnes" },',
+    '  "ingredients": [',
+    '    { "groupe": "Pâte" },',
+    '    { "quantite": 250, "unite": "g", "libelle": "de farine" },',
+    '    { "quantite": 2, "unite": "pièce", "libelle": "oeufs" },',
+    '    { "quantite": 0.5, "unite": "c. à café", "libelle": "de sel" },',
+    '    { "groupe": "Garniture" },',
+    '    { "quantite": null, "unite": "", "libelle": "Sel, poivre" }',
+    "  ],",
+    '  "etapes": [',
+    '    { "titre": "Préparer la pâte", "texte": "Mélanger la farine et le beurre..." }',
+    "  ]",
+    "}",
+    "",
+    "Règles :",
+    "- Tout en français.",
+    "- « categorie » : une parmi Entrées, Plats, Desserts, Boulangerie, Bases (ou une autre courte si aucune ne convient).",
+    "- « quantite » : un nombre, avec un point pour les décimales (0.5 et pas « 1/2 » ni « 0,5 »). Si la recette donne une fourchette (2 à 3), prends la première valeur.",
+    "- « unite » : uniquement g, kg, ml, cl, l, c. à soupe, c. à café, pièce (pour ce qui se compte : oeufs, citrons…), ou une unité courte comme pincée, sachet, gousse, tranche, feuille. Convertis « cuillère à soupe » en « c. à soupe ».",
+    "- Ingrédient sans quantité (ex. « sel, poivre », « beurre pour le moule ») : « quantite »: null et « unite »: \"\".",
+    "- « libelle » : le nom de l'ingrédient tel qu'écrit, avec « de » ou « d' » si besoin (ex. « de farine », « d'huile d'olive »).",
+    "- « groupe » : seulement si la recette sépare les ingrédients en parties (Pâte, Garniture…).",
+    "- « rendement » : le nombre de personnes, parts ou pièces de la recette d'origine, et son unité (personnes, parts, pièces…).",
+    "- « etapes » : garde le texte d'origine des étapes, sans le résumer ni le réécrire. Donne à chaque étape un titre court (ex. « Cuire »).",
+    "- N'invente rien : si une information manque (temps, température, sous-titre…), laisse une chaîne vide \"\" (ou null pour un nombre).",
+    "- Si je joins plusieurs recettes, ne traite que la première."
+  ].join("\n");
+
+  function cleNorm(k) { return H.norm(k).replace(/[^a-z0-9]/g, ""); }
+  function prendre(o, noms) { // valeur d'une clé parmi plusieurs variantes (accents, majuscules, espaces ignorés)
+    if (!o || typeof o !== "object") return undefined;
+    var cles = Object.keys(o);
+    for (var i = 0; i < noms.length; i++) {
+      for (var j = 0; j < cles.length; j++) if (cleNorm(cles[j]) === noms[i]) { var v = o[cles[j]]; if (v !== undefined && v !== null && v !== "") return v; }
+    }
+    return undefined;
+  }
+  function texte(v) { return v === undefined || v === null ? "" : (typeof v === "object" ? "" : String(v).trim()); }
+  function quantite(v) { // 250 | "1,5" | "1/2" | "1 1/2" | "½" | "2-3" | [2, 3] → nombre ou null
+    if (Array.isArray(v)) v = v[0];
+    if (typeof v === "number") return isFinite(v) && v > 0 ? v : null;
+    if (typeof v !== "string") return null;
+    var x = v.replace(/½/g, " 1/2").replace(/¼/g, " 1/4").replace(/¾/g, " 3/4").replace(/,/g, ".").trim();
+    var m, n;
+    if ((m = x.match(/^(\d+)\s+(\d+)\s*\/\s*(\d+)/))) n = +m[1] + m[2] / m[3];      // 1 1/2
+    else if ((m = x.match(/^(\d+)\s*\/\s*(\d+)/))) n = m[1] / m[2];                  // 1/2
+    else if ((m = x.match(/^\d+(?:\.\d+)?/))) n = parseFloat(m[0]);                    // 250, 1.5, 2-3
+    else return null;
+    return n > 0 ? Math.round(n * 1000) / 1000 : null;
+  }
+  function unite(u) {
+    u = texte(u);
+    var n = H.norm(u).replace(/\.$/, "");
+    if (/^(pieces?|pcs?|unites?|u)$/.test(n)) return "";
+    if (/^(l|litres?)$/.test(n)) return "L";
+    if (/^(grammes?|gr)$/.test(n)) return "g";
+    if (/^(kilos?|kilogrammes?)$/.test(n)) return "kg";
+    if (/^(cs|c\.? ?a ?s|cuill?ere?s? a soupe|c\.? a soupe|cuil\.? a soupe)$/.test(n)) return "c. à soupe";
+    if (/^(cc|c\.? ?a ?c|cuill?ere?s? a cafe|c\.? a cafe|cuil\.? a cafe)$/.test(n)) return "c. à café";
+    return u;
+  }
+
+  function blocJSON(txt) { // premier bloc { … } équilibré, en ignorant les accolades dans les chaînes
+    var debut = txt.indexOf("{");
+    if (debut === -1) return null;
+    var prof = 0, dansChaine = false, echap = false;
+    for (var i = debut; i < txt.length; i++) {
+      var c = txt[i];
+      if (dansChaine) { if (echap) echap = false; else if (c === "\\") echap = true; else if (c === '"') dansChaine = false; continue; }
+      if (c === '"') dansChaine = true;
+      else if (c === "{") prof++;
+      else if (c === "}" && --prof === 0) return txt.slice(debut, i + 1);
+    }
+    return txt.slice(debut); // réponse coupée : on tente quand même
+  }
+  function extraireJSON(txt) {
+    txt = String(txt || "").replace(/```[a-zA-Z]*/g, " ").replace(/\u00a0/g, " ");
+    var essais = [txt, txt.replace(/[\u201c\u201d\u201e]/g, '"')]; // guillemets « intelligents » du téléphone
+    for (var k = 0; k < essais.length; k++) {
+      var bloc = blocJSON(essais[k]);
+      if (!bloc) continue;
+      try { return JSON.parse(bloc); } catch (e) {}
+      try { return JSON.parse(bloc.replace(/,\s*([}\]])/g, "$1")); } catch (e) {} // virgules en trop
+    }
+    return null;
+  }
+
+  // Réponse d'une IA (format simple) ou recette au format interne (t/q/u/l, g, etapes en [titre, texte]) → recette interne
+  function depuisIA(txt) {
+    var o = extraireJSON(txt);
+    if (o && !prendre(o, ["titre", "title", "nom", "name"]) && typeof prendre(o, ["recette", "recipe"]) === "object") o = prendre(o, ["recette", "recipe"]);
+    if (!o || typeof o !== "object") throw new Error("Je ne trouve pas de bloc JSON { … } dans ce texte. Vérifiez que vous avez copié toute la réponse de l'IA.");
+    var titre = texte(prendre(o, ["titre", "title", "nom", "name"]));
+    var ingsBruts = prendre(o, ["ingredients", "ingredient", "ingredents"]);
+    var etapesBrutes = prendre(o, ["etapes", "etape", "steps", "instructions", "preparationsteps", "methode", "deroule"]);
+    if (!Array.isArray(etapesBrutes) && Array.isArray(prendre(o, ["preparation"]))) etapesBrutes = prendre(o, ["preparation"]);
+    if (!titre && !Array.isArray(ingsBruts)) throw new Error("Le JSON ne ressemble pas à une recette (pas de titre ni d'ingrédients).");
+
+    var infosB = prendre(o, ["infos", "info", "informations"]) || o;
+    var rdB = prendre(o, ["rendement", "yield", "pour", "portions"]);
+    var parts = texte(prendre(infosB, ["parts", "portions", "personnes", "servings", "nombredeparts"]));
+    var valeur = null, uniteRd = "";
+    if (rdB && typeof rdB === "object") { valeur = quantite(prendre(rdB, ["valeur", "quantite", "nombre", "value", "nb"])); uniteRd = texte(prendre(rdB, ["unite", "unit", "unites"])); }
+    else if (rdB !== undefined) valeur = quantite(rdB);
+    if (!valeur && parts) { valeur = quantite(parts); if (!uniteRd) uniteRd = parts.replace(/^[\d.,\s½¼¾/]+/, "").trim(); }
+
+    var ingredients = (Array.isArray(ingsBruts) ? ingsBruts : []).map(function (it) {
+      if (typeof it === "string") return { t: it.trim() };
+      if (!it || typeof it !== "object") return null;
+      var g = prendre(it, ["groupe", "group", "g", "section", "partie"]);
+      if (g !== undefined && prendre(it, ["libelle", "l", "t", "nom", "ingredient", "name"]) === undefined) return { g: texte(g) };
+      var qBrut = prendre(it, ["quantite", "qte", "q", "quantity", "qty", "quantites"]);
+      var q = quantite(qBrut);
+      var u = unite(prendre(it, ["unite", "u", "unit", "unites"]));
+      if (!u && q && typeof qBrut === "string") u = unite(qBrut.replace(/^[\d.,\s½¼¾\/-]+/, "")); // « 1,5 kg »
+      var l = texte(prendre(it, ["libelle", "l", "nom", "ingredient", "name", "label", "produit"]));
+      var t = texte(prendre(it, ["t", "texte", "text"]));
+      if (!q) { var lib = l || t; return lib ? { t: lib, u: u } : null; }
+      return { q: q, u: u, l: l || t };
+    }).filter(Boolean);
+
+    var etapes = (Array.isArray(etapesBrutes) ? etapesBrutes : []).map(function (s, i) {
+      if (Array.isArray(s)) return [texte(s[0]), texte(s[1])];
+      if (typeof s === "string") return ["", s.trim()];
+      if (!s || typeof s !== "object" || (s.g !== undefined && Object.keys(s).length === 1)) return null;
+      return [texte(prendre(s, ["titre", "title", "nom", "name"])), texte(prendre(s, ["texte", "text", "description", "instruction", "instructions", "contenu", "detail"]))];
+    }).filter(function (s) { return s && (s[0] || s[1]); });
+
+    return {
+      titre: titre,
+      sousTitre: texte(prendre(o, ["soustitre", "subtitle", "sous", "description"])),
+      categorie: texte(prendre(o, ["categorie", "category", "cat", "type"])),
+      infos: {
+        parts: parts,
+        preparation: texte(prendre(infosB, ["preparation", "tempsdepreparation", "tempspreparation", "prep", "preptime"])),
+        cuisson: texte(prendre(infosB, ["cuisson", "tempsdecuisson", "tempscuisson", "cooking", "cooktime"])),
+        temperature: texte(prendre(infosB, ["temperature", "temp", "four", "thermostat"]))
+      },
+      rendement: { valeur: valeur, unite: uniteRd },
+      ingredients: ingredients,
+      etapes: etapes
+    };
+  }
+
+  function copier(txt) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(txt).catch(function () { return copierAncien(txt); });
+    return copierAncien(txt);
+  }
+  function copierAncien(txt) {
+    return new Promise(function (ok, ko) {
+      var ta = document.createElement("textarea");
+      ta.value = txt; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.top = "0"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.focus(); ta.select(); ta.setSelectionRange(0, txt.length);
+      var r = false; try { r = document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(ta);
+      r ? ok() : ko(new Error("copie impossible"));
+    });
+  }
+
+  function importHTML() {
+    return '<section class="box import-ia"><h2>✨ Importer depuis une IA</h2>' +
+      '<p class="hint top">Ouvre ton IA, colle la consigne, ajoute la photo de la recette, puis copie sa réponse ici.</p>' +
+      '<button class="btn flex wide-btn" type="button" id="iaCopier">📋 Copier la consigne pour l\'IA</button>' +
+      '<p class="hint" id="iaCopieMsg" aria-live="polite"></p>' +
+      '<details class="voir-consigne"><summary>Voir la consigne</summary><pre id="iaConsigne">' + H.esc(CONSIGNE_IA) + "</pre></details>" +
+      '<label class="field-label" for="iaReponse">Colle ici la réponse de l\'IA</label>' +
+      '<textarea class="input" id="iaReponse" rows="4" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="{ &quot;titre&quot;: … }"></textarea>' +
+      '<button class="btn primary wide-btn" type="button" id="iaRemplir">Remplir le formulaire</button>' +
+      '<p class="hint" id="iaMsg" role="status" aria-live="polite"></p></section>';
+  }
+
   /* ---------------- formulaire ---------------- */
   function champ(id, label, attrs, aide) {
     return '<label class="field-label" for="' + id + '">' + label + "</label>" +
@@ -180,7 +362,7 @@
     }
     it = it || {};
     var q = it.q !== undefined ? fmt(Array.isArray(it.q) ? it.q[0] : it.q) : "";
-    var l = it.q !== undefined ? (it.l || "") : (it.t || "");
+    var l = it.q !== undefined ? (it.l || "") : (it.t || ""); // sans quantité : tout le texte dans « Ingrédient »
     return '<div class="row row-ing" data-type="i">' +
       '<input class="input" data-k="q" inputmode="decimal" placeholder="Qté" aria-label="Quantité" value="' + esc(q) + '">' +
       '<input class="input" data-k="u" list="unites" placeholder="Unité (g, cl…)" aria-label="Unité" autocapitalize="off" value="' + esc(it.u || "") + '">' +
@@ -264,6 +446,7 @@
       '<h1 class="form-title">' + (edit ? "Modifier la recette" : "Ajouter une recette") + "</h1>" +
       (edit ? "" : '<p class="hint intro">Remplissez la fiche puis appuyez sur « Ajouter au livre ». La recette sera visible par tout le monde.</p>') +
       reglagesHTML() +
+      importHTML() +
 
       '<section class="box"><h2>La recette</h2>' +
       champ("titre", "Titre *", 'required autocomplete="off" placeholder="ex. Tarte aux pommes" value="' + esc(r.titre) + '"') +
@@ -334,6 +517,48 @@
       });
     });
     numeroter();
+
+    // import depuis une IA
+    function remplir(x) {
+      function set(id, v) { form.querySelector("#" + id).value = v || ""; }
+      set("titre", x.titre); set("sousTitre", x.sousTitre);
+      if (x.categorie) {
+        var connue = null;
+        Array.prototype.forEach.call(cat.options, function (o) { if (o.value !== "__autre" && H.norm(o.value) === H.norm(x.categorie)) connue = o.value; });
+        cat.value = connue || "__autre"; catAutreWrap.hidden = !!connue; set("catAutre", connue ? "" : x.categorie);
+      }
+      set("rdVal", x.rendement.valeur ? fmt(x.rendement.valeur) : ""); set("rdUnite", x.rendement.unite || "personnes");
+      var autoParts = x.rendement.valeur && H.norm(x.infos.parts) === H.norm(fmt(x.rendement.valeur) + " " + (x.rendement.unite || ""));
+      set("infParts", autoParts ? "" : x.infos.parts); set("infPrep", x.infos.preparation); set("infCuisson", x.infos.cuisson); set("infTemp", x.infos.temperature);
+      ings.innerHTML = (x.ingredients.length ? x.ingredients : [{}]).map(ligneIngredient).join("");
+      etapes.innerHTML = (x.etapes.length ? x.etapes : [["", ""]]).map(ligneEtape).join("");
+      numeroter();
+    }
+    var iaMsg = form.querySelector("#iaMsg"), iaCopieMsg = form.querySelector("#iaCopieMsg");
+    form.querySelector("#iaCopier").addEventListener("click", function () {
+      copier(CONSIGNE_IA).then(function () { iaCopieMsg.textContent = "Consigne copiée ✅"; },
+        function () { iaCopieMsg.textContent = "La copie automatique ne marche pas ici : ouvrez « Voir la consigne », sélectionnez tout le texte et copiez-le."; form.querySelector(".voir-consigne").open = true; });
+    });
+    form.querySelector("#iaRemplir").addEventListener("click", function () {
+      var txt = form.querySelector("#iaReponse").value;
+      if (!txt.trim()) { iaMsg.className = "hint warn"; iaMsg.textContent = "Collez d'abord la réponse de l'IA dans la case."; return; }
+      try {
+        var x = depuisIA(txt);
+        remplir(x);
+        form.querySelector("#iaReponse").value = "";
+        var manque = [];
+        if (!x.titre) manque.push("le titre");
+        if (!x.rendement.valeur) manque.push("pour combien (nombre)");
+        if (!x.ingredients.length) manque.push("les ingrédients");
+        if (!x.etapes.length) manque.push("les étapes");
+        iaMsg.className = "hint ok";
+        iaMsg.textContent = "Formulaire rempli : vérifie puis envoie." + (manque.length ? " À compléter : " + manque.join(", ") + "." : "");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } catch (e) {
+        iaMsg.className = "hint warn";
+        iaMsg.textContent = "❌ " + e.message;
+      }
+    });
 
     // photo
     var photo = { data: null, retirer: false };
@@ -487,6 +712,8 @@
     renderForm: renderForm,
     supprimer: supprimer,
     attente: lireAttente,
+    depuisIA: function (txt) { return depuisIA(txt); },
+    CONSIGNE_IA: CONSIGNE_IA,
     FICHIER: FICHIER
   };
 })();

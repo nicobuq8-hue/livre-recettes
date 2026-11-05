@@ -274,6 +274,15 @@ textarea.input { height: auto; min-height: 84px; padding: 10px 12px; line-height
 .done-box h1 { margin: 8px 0; color: var(--teal-dark); }
 .done-box p { margin: 6px 0; }
 
+.import-ia { border-color: #c9dfeb; background: linear-gradient(180deg, #fff 0%, var(--teal-light) 100%); }
+.wide-btn { width: 100%; }
+.import-ia .wide-btn + .hint:empty { margin: 0; }
+.import-ia textarea.input { min-height: 96px; margin-top: 0; }
+.voir-consigne { margin: 10px 0 14px; font-size: .88rem; }
+.voir-consigne summary { cursor: pointer; color: var(--teal); font-weight: 650; }
+.voir-consigne pre { white-space: pre-wrap; word-break: break-word; max-height: 260px; overflow: auto; background: #fff; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px; font-size: .78rem; -webkit-user-select: text; user-select: text; }
+.hint.ok { color: #1e6b37; background: #e3f4e8; padding: 8px 10px; border-radius: 10px; font-weight: 650; }
+
 /* ---------- impression / PDF ---------- */
 @media print {
   @page { margin: 14mm 14mm 16mm; }
