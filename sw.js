@@ -1,5 +1,5 @@
 /* Service worker — généré par build-sw.py (ne pas modifier à la main) */
-const CACHE = "livre-recettes-0e95bb7302";
+const CACHE = "livre-recettes-f56a47405b";
 const ASSETS = [
   "./",
   "index.html",

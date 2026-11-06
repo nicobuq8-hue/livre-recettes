@@ -358,7 +358,7 @@ RECETTES.push(
 {
   id: "boudin-blanc", titre: "Boudin blanc", sousTitre: "calculateur d'après le classeur de pesée",
   categorie: "Plats", image: "img/boudin-blanc.jpg", calcul: true,
-  infos: { parts: "1 kg de préparation · environ 8 boudins de 125 g", preparation: "Non précisé", cuisson: "15 à 20 min", temperature: "Pochage 75-85 °C" },
+  infos: { parts: "1 kg de préparation fait environ 8 boudins de 125 g", preparation: "3h", cuisson: "15 à 20 min", temperature: "Pochage 75-85 °C" },
   rendement: { valeur: 1980, depart: 1000, unite: "g de préparation", uniteSing: "g de préparation", pas: 250, min: 500, libelle: "Quantité de préparation", masseViande: 1.98 },
   ingredients: [
     { g: "Viande" },
@@ -381,12 +381,12 @@ RECETTES.push(
     { t: "Boyaux", q: 2.38, u: "m", l: "de boyau (environ 15 cm par boudin de 125 g)" }
   ],
   etapes: [
-    ["Infuser le lait", "La veille ou le jour même, mettre le lait dans une casserole avec les carottes et les oignons coupés en gros morceaux ainsi que le bouquet garni. Porter juste à ébullition, puis laisser infuser 10 à 15 minutes à feu doux. Filtrer, puis peser le lait filtré afin de calculer la quantité de crème à ajouter. Laisser tiédir, idéalement autour de 50-60 °C."],
+    ["Infuser le lait + déssaler  boyaux", "La veille ou le jour même, mettre le lait dans une casserole avec les carottes et les oignons coupés en gros morceaux ainsi que le bouquet garni. Porter juste à ébullition, puis laisser infuser 10 à 15 minutes à feu doux. Filtrer, puis peser le lait filtré afin de calculer la quantité de crème à ajouter. Laisser tiédir, idéalement autour de 50-60 °C."],
     ["Préparer les aromates", "Émincer finement les échalotes ou l'oignon. Les faire suer doucement dans le beurre sans coloration jusqu'à transparence. En fin de cuisson, saupoudrer la Maïzena et mélanger 1 à 2 minutes pour singer les aromates et former un liant, puis réserver."],
     ["Préparer la panade", "Détremper la mie de pain dans une partie du lait infusé tiède jusqu'à obtenir une pâte homogène. Ajouter éventuellement le porto."],
     ["Hacher les viandes", "Hacher finement le gras de porc, puis le maigre, avec la grille la plus fine. Si possible, repasser une seconde fois. Garder la viande bien froide ; la placer 15 à 20 minutes au congélateur si nécessaire."],
     ["Monter la farce", "Mélanger les viandes avec le sel, le poivre, la muscade et le quatre-épices. Ajouter les oeufs un à un, puis les aromates liés à la Maïzena et la panade. Verser progressivement le lait infusé tiède en mélangeant énergiquement 3 à 5 minutes, jusqu'à obtenir une farce lisse, liée et onctueuse. Si elle est trop ferme, ajouter un peu de lait ; si elle est trop liquide, un peu de fécule."],
-    ["Embosser", "Rincer les boyaux et les enfiler sur le poussoir ou l'entonnoir. Remplir sans trop tasser. Former des boudins de 12 à 15 cm, torsader ou attacher les extrémités et piquer délicatement les éventuelles bulles d'air."],
+    ["Embosser", "Rincer les boyaux qui ont été dessalés et les enfiler sur le poussoir ou l'entonnoir. Remplir sans trop tasser. Former des boudins de 12 à 15 cm, torsader ou attacher les extrémités et piquer délicatement les éventuelles bulles d'air."],
     ["Pocher", "Chauffer une grande quantité d'eau à 80-85 °C maximum, sans jamais faire bouillir. Plonger les boudins et cuire 15 à 20 minutes en maintenant l'eau entre 75 et 85 °C."],
     ["Refroidir", "Plonger immédiatement les boudins quelques minutes dans de l'eau glacée. Les essuyer sur un linge propre et les réserver au réfrigérateur."],
     ["Conserver et servir", "Conserver 4 à 5 jours au réfrigérateur, sous vide ou filmés, ou plusieurs mois au congélateur. Réchauffer à la poêle dans un peu de beurre, 8 à 10 minutes à feu doux, ou au four à 160-170 °C. Ne pas piquer."]

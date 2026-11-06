@@ -110,33 +110,33 @@
     "categorie": "Plats",
     "image": "img/boudin-blanc.jpg",
     "infos": {
-      "parts": "2 kg de préparation fait environ 16 boudins de 125 g",
+      "parts": "1 kg de préparation fait environ 8 boudins de 125 g",
       "preparation": "3h",
       "cuisson": "15 à 20 min",
       "temperature": "Pochage 75-85 °C"
     },
     "rendement": {
       "valeur": 1980,
-      "unite": "g de boudin au total",
-      "uniteSing": "g de boudin au total",
+      "unite": "g de préparation",
+      "uniteSing": "g de préparation",
       "pas": 250,
       "min": 500,
       "masseViande": 1.98,
-      "libelle": "Quantité de boudin à préparer",
-      "depart": 2000
+      "libelle": "Quantité de préparation",
+      "depart": 1000
     },
     "ingredients": [
       {
         "g": "Viande"
       },
       {
-        "t": "750 g de maigre (épaule de veau, poitrine de porc ou volaille)",
+        "t": "Maigre 75 % : épaule de veau, poitrine de porc ou volaille",
         "q": 750,
         "u": "g",
         "l": "de maigre (épaule de veau, poitrine de porc ou volaille)"
       },
       {
-        "t": "250 g de gras (gorge de porc ou poitrine grasse)",
+        "t": "Gras 25 % : gorge de porc ou poitrine grasse",
         "q": 250,
         "u": "g",
         "l": "de gras (gorge de porc ou poitrine grasse)"
@@ -145,13 +145,13 @@
         "g": "Farce"
       },
       {
-        "t": "230 g de mie de pain",
+        "t": "Mie de pain : 23 %",
         "q": 230,
         "u": "g",
         "l": "de mie de pain"
       },
       {
-        "t": "500 g de lait demi-écrémé aromatisé",
+        "t": "Lait demi-écrémé aromatisé : 50 %",
         "q": 500,
         "u": "g",
         "l": "de lait demi-écrémé aromatisé"
@@ -160,19 +160,19 @@
         "t": "Crème fraîche de ferme pour compenser la perte de lait évaporée"
       },
       {
-        "t": "120 g d'oignon cuit au beurre et singé à la Maïzena",
+        "t": "Oignon cuit au beurre et singé à la Maïzena : 12 %",
         "q": 120,
         "u": "g",
         "l": "d'oignon cuit au beurre et singé à la Maïzena"
       },
       {
-        "t": "40 g de Maïzena pour singer",
+        "t": "Maïzena pour singer : 4 %",
         "q": 40,
         "u": "g",
         "l": "de Maïzena pour singer"
       },
       {
-        "t": "250 g d'œufs entiers",
+        "t": "Œufs entiers : 25 %, soit environ 1 œuf pour 50 g",
         "q": 250,
         "u": "g",
         "l": "d'œufs entiers",
@@ -182,46 +182,46 @@
         "g": "Épicerie (sur la masse totale de la préparation)"
       },
       {
-        "t": "29,7 g de sel fin",
+        "t": "Sel fin : 1,5 %",
         "q": 29.7,
         "u": "g",
         "l": "de sel fin"
       },
       {
-        "t": "4,95 g de poivre blanc",
+        "t": "Poivre blanc : 0,25 %",
         "q": 4.95,
         "u": "g",
         "l": "de poivre blanc",
         "precis": true
       },
       {
-        "t": "1,98 g de quatre-épices — optionnel",
+        "t": "Quatre-épices : 0,1 % — optionnel",
         "q": 1.98,
         "u": "g",
         "l": "de quatre-épices — optionnel",
         "precis": true
       },
       {
-        "t": "1,98 g de noix de muscade — optionnelle",
+        "t": "Noix de muscade : 0,1 % — optionnelle",
         "q": 1.98,
         "u": "g",
         "l": "de noix de muscade — optionnelle",
         "precis": true
       },
       {
-        "t": "4,95 cl de porto blanc, cognac ou madère — optionnel",
+        "t": "Porto blanc, cognac ou madère : 0,25 % — optionnel",
         "q": 4.95,
         "u": "cl",
         "l": "de porto blanc, cognac ou madère — optionnel"
       },
       {
-        "t": "59,4 g de truffe au minimum — optionnelle, pour l'appellation truffée",
+        "t": "Truffe : minimum 3 % pour l'appellation truffée — optionnelle",
         "q": 59.4,
         "u": "g",
         "l": "de truffe au minimum — optionnelle, pour l'appellation truffée"
       },
       {
-        "t": "2,38 m de boyau (environ 15 cm par boudin de 125 g)",
+        "t": "Boyaux",
         "q": 2.38,
         "u": "m",
         "l": "de boyau (environ 15 cm par boudin de 125 g)"
