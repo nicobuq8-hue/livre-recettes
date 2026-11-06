@@ -358,8 +358,8 @@ RECETTES.push(
 {
   id: "boudin-blanc", titre: "Boudin blanc", sousTitre: "calculateur d'après le classeur de pesée",
   categorie: "Plats", image: "img/boudin-blanc.jpg", calcul: true,
-  infos: { parts: "Environ 2 kg de préparation · 16 boudins de 125 g pour 1 kg de viande", preparation: "Non précisé", cuisson: "15 à 20 min", temperature: "Pochage 75-85 °C" },
-  rendement: { valeur: 1980, depart: 2000, unite: "g de boudin au total", uniteSing: "g de boudin au total", pas: 250, min: 500, libelle: "Quantité de boudin à préparer", masseViande: 1.98 },
+  infos: { parts: "1 kg de préparation · environ 8 boudins de 125 g", preparation: "Non précisé", cuisson: "15 à 20 min", temperature: "Pochage 75-85 °C" },
+  rendement: { valeur: 1980, depart: 1000, unite: "g de préparation", uniteSing: "g de préparation", pas: 250, min: 500, libelle: "Quantité de préparation", masseViande: 1.98 },
   ingredients: [
     { g: "Viande" },
     { t: "Maigre 75 % : épaule de veau, poitrine de porc ou volaille", q: 750, u: "g", l: "de maigre (épaule de veau, poitrine de porc ou volaille)" },
@@ -781,21 +781,21 @@ RECETTES.push(
   ]
 },
 {
-  id: "pate-pizza-biga", titre: "Pâte à pizza sur biga", sousTitre: "12 pâtons d'environ 275 g · hydratation globale 60 %",
+  id: "pate-pizza-biga", titre: "Pâte à pizza sur biga", sousTitre: "6 pâtons d'environ 275 g · hydratation globale 60 %",
   categorie: "Boulangerie", image: "img/pate-pizza-patons.jpg",
-  infos: { parts: "12 pâtons d'environ 275 g (réglable)", preparation: "J-3 à J-2", cuisson: "Au moment de faire la pizza", temperature: "Biga 16 à 24 h à 18-20 °C (ou 48 h au frigo)" },
-  rendement: { valeur: 12, unite: "pâtons", uniteSing: "pâton", pas: 1, min: 1, aide: "Par pâton : 97,22 g de farine et 42,78 g d'eau pour la biga, 74,55 g de farine et 60 g d'eau pour la pâte (tableau « Quantité pate pizza sur BIGA »)." },
+  infos: { parts: "6 pâtons d'environ 275 g (réglable)", preparation: "J-3 à J-2", cuisson: "Au moment de faire la pizza", temperature: "Biga 16 à 24 h à 18-20 °C (ou 48 h au frigo)" },
+  rendement: { valeur: 6, unite: "pâtons", uniteSing: "pâton", pas: 1, min: 1, aide: "Par pâton : 97,22 g de farine et 42,78 g d'eau pour la biga, 74,55 g de farine et 60 g d'eau pour la pâte (tableau « Quantité pate pizza sur BIGA »)." },
   ingredients: [
     { g: "1. La biga (hydratation 44 %)" },
-    { t: "1 167 g de farine T00 ou T45", q: 1166.64, u: "g", l: "de farine T00 ou T45" },
-    { t: "513 g d'eau froide (sortie du frigo)", q: 513.36, u: "g", l: "d'eau froide (sortie du frigo)" },
-    { t: "3,1 g de levure sèche (0,15 % de la farine totale)", q: 3.09186, u: "g", precis: true, l: "de levure sèche (0,15 % de la farine totale)" },
+    { t: "583 g de farine T00 ou T45", q: 583.32, u: "g", l: "de farine T00 ou T45" },
+    { t: "257 g d'eau froide (sortie du frigo)", q: 256.68, u: "g", l: "d'eau froide (sortie du frigo)" },
+    { t: "1,5 g de levure sèche (0,15 % de la farine totale)", q: 1.54593, u: "g", precis: true, l: "de levure sèche (0,15 % de la farine totale)" },
     { g: "2. La pâte (refresh final)" },
     { t: "Toute la biga" },
-    { t: "895 g de farine T00 ou T45", q: 894.6, u: "g", l: "de farine T00 ou T45" },
-    { t: "720 g d'eau tempérée (20-22 °C)", q: 720, u: "g", l: "d'eau tempérée (20-22 °C)" },
-    { t: "56 g de sel fin (2,7 % de la farine totale)", q: 55.65348, u: "g", l: "de sel fin (2,7 % de la farine totale)" },
-    { t: "41 g d'huile d'olive extra vierge (2 % de la farine totale)", q: 41.2248, u: "g", l: "d'huile d'olive extra vierge (2 % de la farine totale)" },
+    { t: "447 g de farine T00 ou T45", q: 447.3, u: "g", l: "de farine T00 ou T45" },
+    { t: "360 g d'eau tempérée (20-22 °C)", q: 360, u: "g", l: "d'eau tempérée (20-22 °C)" },
+    { t: "28 g de sel fin (2,7 % de la farine totale)", q: 27.82674, u: "g", l: "de sel fin (2,7 % de la farine totale)" },
+    { t: "21 g d'huile d'olive extra vierge (2 % de la farine totale)", q: 20.6124, u: "g", l: "d'huile d'olive extra vierge (2 % de la farine totale)" },
     { g: "" },
     { t: "Taux de biga : 51 % de la masse farine + eau" },
     { t: "Hydratation globale : 60 %" }
@@ -809,7 +809,7 @@ RECETTES.push(
     ["Pétrir et saler", "Pétrir 5 à 6 minutes en première vitesse. Quand la pâte commence à se former, ajouter le sel. Pétrir encore 4 à 6 minutes en deuxième vitesse jusqu'à obtenir un voile, test du gluten."],
     ["Ajouter l'huile", "Ajouter l'huile d'olive en filet tout en continuant à pétrir 2 à 3 minutes. La pâte doit être lisse, souple et légèrement collante."],
     ["Pointage", "Couvrir et laisser fermenter en masse 2 à 3 heures à 24-26 °C, jusqu'à ce que la pâte double presque."],
-    ["Diviser et bouler", "Renverser sur un plan de travail légèrement fariné. Diviser en pâtons d'environ 275 g (12 pâtons pour la recette de base). Bouler serré en refermant bien en dessous, puis disposer dans une caisse huilée et couvrir hermétiquement."],
+    ["Diviser et bouler", "Renverser sur un plan de travail légèrement fariné. Diviser en pâtons d'environ 275 g (6 pâtons pour la recette de base). Bouler serré en refermant bien en dessous, puis disposer dans une caisse huilée et couvrir hermétiquement."],
     ["Apprêt final", "Laisser 6 à 12 heures à température ambiante, 20-22 °C, ou 24 à 48 heures au réfrigérateur à 4 °C. Dans ce dernier cas, sortir les pâtons 2 à 3 heures avant l'étalage pour qu'ils reviennent à température."]
   ]
 }

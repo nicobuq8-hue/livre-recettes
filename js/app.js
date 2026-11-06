@@ -277,8 +277,7 @@
     if (rd.aide) html += '<p class="hint">' + esc(rd.aide) + "</p>";
     if (fmt.note) html += '<p class="hint">' + esc(fmt.note) + "</p>";
     if (Math.abs(st.value - (rd.depart || rd.valeur)) > 1e-9) {
-      html += '<p class="hint warn">Quantités recalculées (×' + fmtNum(Math.round(f * 100) / 100, "g") + "). Les quantités citées dans les étapes correspondent à la recette d'origine.</p>" +
-        '<button class="reset no-print" type="button" id="reset">Revenir à la recette d\'origine</button>';
+      html += '<button class="reset no-print" type="button" id="reset">Revenir à la recette d\'origine</button>';
     }
     var box = document.getElementById("qtybox");
     box.innerHTML = html;
