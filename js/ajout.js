@@ -1,9 +1,12 @@
 /*
  * Mon livre de recettes — ajout / modification / suppression de recettes depuis le téléphone
  * ----------------------------------------------------------------------------------------
- * Les recettes ajoutées par le formulaire sont enregistrées dans data/recettes-ajoutees.json
- * (même format que js/recettes.js) via l'API GitHub « Contents », avec un jeton personnel
- * saisi une seule fois et gardé uniquement sur l'appareil (localStorage).
+ * Les recettes ajoutées ou modifiées depuis le formulaire sont enregistrées dans
+ * data/recettes-ajoutees.json (même format que js/recettes.js) via l'API GitHub « Contents ».
+ * Un id déjà présent dans js/recettes.js est une surcharge : il remplace la recette intégrée
+ * au chargement, sans réécrire ce fichier JS depuis le téléphone.
+ * Les recettes intégrées « supprimées » sont listées dans data/recettes-masquees.json (ids).
+ * Jeton personnel saisi une seule fois et gardé uniquement sur l'appareil (localStorage).
  */
 (function () {
   "use strict";
@@ -11,6 +14,7 @@
   var DEPOT = "nicobuq8-hue/livre-recettes";
   var BRANCHE = "main";
   var FICHIER = "data/recettes-ajoutees.json";
+  var FICHIER_MASQUEES = "data/recettes-masquees.json";
   var API = "https://api.github.com/repos/" + DEPOT + "/contents/";
   var CLE_JETON = "livre-recettes-jeton-github";
   var CLE_ATTENTE = "livre-recettes-attente";
@@ -94,6 +98,34 @@
     return (donnees ? Promise.resolve(donnees) : lireDonnees()).then(function (d) { return essai(d, false); });
   }
 
+  function lireMasquees() {
+    return lireFichier(FICHIER_MASQUEES).then(function (f) {
+      if (!f.contenu) return { sha: null, liste: [] };
+      var liste;
+      try { liste = JSON.parse(depuisBase64(f.contenu) || "[]"); } catch (e) {
+        throw Erreur("Le fichier " + FICHIER_MASQUEES + " est abîmé (JSON invalide). Il faut le réparer sur GitHub.");
+      }
+      if (!Array.isArray(liste)) throw Erreur("Le fichier " + FICHIER_MASQUEES + " doit contenir une liste [ ].");
+      return { sha: f.sha, liste: liste };
+    });
+  }
+
+  function majMasquees(modifier, message) {
+    function essai(d, reessai) {
+      var liste = modifier(d.liste.slice());
+      var texte = JSON.stringify(liste, null, 2) + "\n";
+      var corps = { message: message, content: versBase64(texte), branch: BRANCHE };
+      if (d.sha) corps.sha = d.sha;
+      return gh("PUT", FICHIER_MASQUEES, corps)
+        .then(function () { return liste; }, function (e) {
+          if (e.status === 409 && !reessai) return lireMasquees().then(function (d2) { return essai(d2, true); });
+          if (e.status === 409) throw Erreur("Quelqu'un d'autre modifie le livre en même temps. Réessayez dans un instant.");
+          throw e;
+        });
+    }
+    return lireMasquees().then(function (d) { return essai(d, false); });
+  }
+
   function envoyerImage(chemin, base64, message) {
     function essai(reessai) {
       return lireFichier(chemin).then(function (f) {
@@ -134,7 +166,7 @@
   }
   function idUnique(titre, liste) {
     var base = slug(titre), id = base, n = 2;
-    function pris(x) { return H.byId(x) || liste.some(function (r) { return r.id === x; }); }
+    function pris(x) { return H.byId(x) || (H.estMasquee && H.estMasquee(x)) || liste.some(function (r) { return r.id === x; }); }
     while (pris(id)) id = base + "-" + n++;
     return id;
   }
@@ -372,6 +404,11 @@
 
   function ligneEtape(s) {
     var esc = H.esc;
+    if (s && !Array.isArray(s) && s.g !== undefined) {
+      return '<div class="row row-group" data-type="eg">' +
+        '<input class="input" data-k="g" placeholder="Titre de partie (ex. La veille)" aria-label="Titre de partie" value="' + esc(s.g) + '">' +
+        '<button type="button" class="icon-btn" data-act="del" aria-label="Supprimer ce titre">×</button></div>';
+    }
     s = s || ["", ""];
     return '<div class="row row-step" data-type="e">' +
       '<div class="row-head"><span class="step-num"></span>' +
@@ -445,6 +482,7 @@
       '<form class="form" id="form" novalidate>' +
       '<h1 class="form-title">' + (edit ? "Modifier la recette" : "Ajouter une recette") + "</h1>" +
       (edit ? "" : '<p class="hint intro">Remplissez la fiche puis appuyez sur « Ajouter au livre ». La recette sera visible par tout le monde.</p>') +
+      (!getJeton() ? '<p class="hint warn intro">Pour enregistrer ou supprimer, ouvrez « Réglages GitHub » ci-dessous et collez votre jeton (une seule fois).</p>' : "") +
       reglagesHTML() +
       importHTML() +
 
@@ -480,7 +518,7 @@
       '<button class="btn flex" type="button" id="addGroup">＋ Groupe</button></div></section>' +
 
       '<section class="box"><h2>Étapes</h2>' +
-      '<div class="rows" id="etapes">' + r.etapes.filter(Array.isArray).map(ligneEtape).join("") + "</div>" +
+      '<div class="rows" id="etapes">' + r.etapes.map(ligneEtape).join("") + "</div>" +
       '<div class="actions inline"><button class="btn flex" type="button" id="addStep">＋ Étape</button></div></section>' +
 
       '<section class="box"><h2>Photo (facultatif)</h2>' +
@@ -630,11 +668,16 @@
     if (!ingredients.some(function (it) { return it.g === undefined; })) return { erreur: "Ajoutez au moins un ingrédient.", champ: form.querySelector('#ings [data-k="l"]') };
 
     var etapes = [];
-    form.querySelectorAll("#etapes .row").forEach(function (row, i) {
+    form.querySelectorAll("#etapes .row").forEach(function (row) {
+      if (row.getAttribute("data-type") === "eg") {
+        var g = row.querySelector('[data-k="g"]').value.trim();
+        if (g) etapes.push({ g: g });
+        return;
+      }
       var t = row.querySelector('[data-k="titre"]').value.trim(), x = row.querySelector('[data-k="texte"]').value.trim();
-      if (t || x) etapes.push([t || "Étape " + (etapes.length + 1), x]);
+      if (t || x) etapes.push([t || "Étape " + (etapes.filter(Array.isArray).length + 1), x]);
     });
-    if (!etapes.length) return { erreur: "Ajoutez au moins une étape.", champ: form.querySelector('#etapes [data-k="titre"]') };
+    if (!etapes.some(function (s) { return Array.isArray(s); })) return { erreur: "Ajoutez au moins une étape.", champ: form.querySelector('#etapes [data-k="titre"]') };
 
     var recette = {
       id: edit ? ancienne.id : null,
@@ -648,11 +691,40 @@
     return { recette: recette };
   }
 
+  function conserverExtras(rec, ancienne) {
+    if (!ancienne) return rec;
+    if (ancienne.calcul) rec.calcul = true;
+    if (ancienne.formats) rec.formats = JSON.parse(JSON.stringify(ancienne.formats));
+    var rd = ancienne.rendement || {};
+    ["masseViande", "aide", "libelle", "depart"].forEach(function (k) {
+      if (rd[k] !== undefined && rec.rendement[k] === undefined) rec.rendement[k] = rd[k];
+    });
+    if (rd.min !== undefined) rec.rendement.min = rd.min;
+    rec.ingredients = rec.ingredients.map(function (it) {
+      if (it.g !== undefined) return it;
+      var old = (ancienne.ingredients || []).filter(function (x) {
+        if (x.g !== undefined) return false;
+        var a = H.norm(it.l || it.t || ""), b = H.norm(x.l || x.t || "");
+        return a && b && (a === b || a.indexOf(b) !== -1 || b.indexOf(a) !== -1);
+      })[0];
+      if (!old) return it;
+      ["pre", "sg", "ou", "oeufsPour", "jaunesPour", "precis"].forEach(function (k) {
+        if (old[k] !== undefined && it[k] === undefined) it[k] = old[k];
+      });
+      return it;
+    });
+    return rec;
+  }
+
   function envoyer(rec, photo, edit, ancienne, progres) {
+    if (edit) rec = conserverExtras(rec, ancienne);
     progres("Connexion au livre sur GitHub…");
     return lireDonnees().then(function (d) {
+      var integre = H.estIntegre && H.estIntegre(rec.id);
       if (edit) {
-        if (!d.liste.some(function (x) { return x.id === rec.id; })) throw Erreur("Cette recette n'existe plus dans le livre (supprimée entre-temps ?).");
+        if (!d.liste.some(function (x) { return x.id === rec.id; }) && !integre) {
+          throw Erreur("Cette recette n'existe plus dans le livre (supprimée entre-temps ?).");
+        }
       } else {
         rec.id = idUnique(rec.titre, d.liste);
       }
@@ -669,7 +741,10 @@
       return etape.then(function () {
         progres("Enregistrement de la recette…");
         return majDonnees(function (liste) {
-          if (edit) return liste.map(function (x) { return x.id === rec.id ? rec : x; });
+          if (edit && liste.some(function (x) { return x.id === rec.id; })) {
+            return liste.map(function (x) { return x.id === rec.id ? rec : x; });
+          }
+          if (edit) return liste.concat([rec]); // surcharge d'une recette intégrée (même id)
           if (liste.some(function (x) { return x.id === rec.id; })) throw Erreur("Une recette avec ce titre vient d'être ajoutée. Changez légèrement le titre.");
           return liste.concat([rec]);
         }, (edit ? "Modification recette : " : "Ajout recette : ") + rec.titre, d);
@@ -696,12 +771,31 @@
   }
 
   function supprimer(r) {
-    if (!getJeton()) { alert("Pour supprimer, il faut d'abord enregistrer votre jeton GitHub : ouvrez « Ajouter une recette » puis « Réglages GitHub »."); return Promise.resolve(false); }
-    if (!confirm("Supprimer définitivement la recette « " + r.titre + " » du livre ?\nElle disparaîtra pour tout le monde.")) return Promise.resolve(false);
-    return majDonnees(function (liste) {
-      if (!liste.some(function (x) { return x.id === r.id; })) throw Erreur("Cette recette n'est déjà plus dans le livre.");
-      return liste.filter(function (x) { return x.id !== r.id; });
-    }, "Suppression recette : " + r.titre).then(function () {
+    if (!getJeton()) {
+      alert("Pour supprimer une recette, il faut d'abord enregistrer votre jeton GitHub : ouvrez « Réglages GitHub », collez votre jeton, puis revenez supprimer.");
+      location.hash = "#/ajouter";
+      return Promise.resolve(false);
+    }
+    if (!confirm("Supprimer « " + r.titre + " » du livre ? Cette action est définitive.")) return Promise.resolve(false);
+    var integre = H.estIntegre && H.estIntegre(r.id);
+    var etape = Promise.resolve();
+    if (!integre || r._ajout) {
+      etape = majDonnees(function (liste) {
+        if (!integre && !liste.some(function (x) { return x.id === r.id; })) {
+          throw Erreur("Cette recette n'est déjà plus dans le livre.");
+        }
+        return liste.filter(function (x) { return x.id !== r.id; });
+      }, "Suppression recette : " + r.titre);
+    }
+    if (integre) {
+      etape = etape.then(function () {
+        return majMasquees(function (liste) {
+          if (liste.indexOf(r.id) === -1) liste.push(r.id);
+          return liste;
+        }, "Masquage recette : " + r.titre);
+      });
+    }
+    return etape.then(function () {
       noterAttente(null, r.id);
       if (/^img\/ajout-/.test(r.image || "")) return supprimerFichier(r.image, "Photo supprimée : " + r.titre).catch(function () {});
     }).then(function () { return true; }, function (e) { alert("La recette n'a pas été supprimée.\n" + e.message); return false; });
@@ -714,6 +808,7 @@
     attente: lireAttente,
     depuisIA: function (txt) { return depuisIA(txt); },
     CONSIGNE_IA: CONSIGNE_IA,
-    FICHIER: FICHIER
+    FICHIER: FICHIER,
+    FICHIER_MASQUEES: FICHIER_MASQUEES
   };
 })();

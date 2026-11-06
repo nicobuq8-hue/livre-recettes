@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Régénère sw.js avec la liste de tous les fichiers à mettre en cache.
 À relancer après chaque ajout de recette ou de photo : python3 build-sw.py
-(data/recettes-ajoutees.json est aussi mis en cache ; le service worker passe toujours
-par le réseau d'abord, donc les recettes ajoutées depuis le téléphone arrivent sans le relancer.)"""
+(data/recettes-ajoutees.json et data/recettes-masquees.json sont aussi mis en cache ; le service
+worker passe toujours par le réseau d'abord, donc les ajouts, surcharges et masquages arrivent
+sans le relancer.)"""
 import os, hashlib, json
 root = os.path.dirname(os.path.abspath(__file__))
 files = ["./", "index.html", "manifest.json"]

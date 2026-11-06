@@ -3,6 +3,9 @@
 
   var RECETTES = window.RECETTES || [];
   var CATEGORIES = window.CATEGORIES || [];
+  var IDS_INTEGREES = {};
+  RECETTES.forEach(function (r) { if (r && r.id) IDS_INTEGREES[r.id] = 1; });
+  var IDS_MASQUEES = {};
   var app = document.getElementById("app");
   var btnBack = document.getElementById("btnBack");
 
@@ -210,8 +213,8 @@
       '<div class="actions">' +
       (canShare ? '<button class="btn flex" id="share" type="button">' + ICON.share + "Partager</button>" : "") +
       '<button class="btn flex" id="print" type="button">' + ICON.print + "PDF / Imprimer</button></div>" +
-      (r._ajout ? '<div class="actions no-print"><a class="btn flex" href="#/modifier/' + esc(r.id) + '">✏️ Modifier</a>' +
-        '<button class="btn flex danger-text" id="suppr" type="button">🗑️ Supprimer</button></div>' : "") +
+      '<div class="actions no-print"><a class="btn flex" href="#/modifier/' + esc(r.id) + '">✏️ Modifier</a>' +
+      '<button class="btn flex danger-text" id="suppr" type="button">🗑️ Supprimer</button></div>' +
       '<div class="tiles" id="tiles"></div>' +
       '<section class="box" id="qtybox"></section>' +
       '<h2 class="sec-title">Ingrédients</h2><ul class="ingredients" id="ings"></ul>' +
@@ -315,12 +318,11 @@
   }
 
   /* ---------------- recettes ajoutées depuis le téléphone (data/recettes-ajoutees.json) ---------------- */
-  function integrer(rec, apercu) { // ajoute ou remplace une recette ajoutée dans la liste en mémoire
+  function integrer(rec, apercu) { // ajoute ou remplace (surcharge d'une recette intégrée comprise)
     rec._ajout = true;
     if (apercu) rec._apercu = apercu;
     for (var i = 0; i < RECETTES.length; i++) {
       if (RECETTES[i].id === rec.id) {
-        if (!RECETTES[i]._ajout) return; // une recette intégrée n'est jamais remplacée
         if (!apercu && RECETTES[i]._apercu && RECETTES[i].image === rec.image) rec._apercu = RECETTES[i]._apercu;
         RECETTES[i] = rec; delete recState[rec.id]; return;
       }
@@ -328,30 +330,41 @@
     RECETTES.push(rec);
   }
   function retirer(id) {
-    for (var i = 0; i < RECETTES.length; i++) if (RECETTES[i].id === id && RECETTES[i]._ajout) { RECETTES.splice(i, 1); return; }
+    for (var i = 0; i < RECETTES.length; i++) {
+      if (RECETTES[i].id === id) { RECETTES.splice(i, 1); delete recState[id]; return; }
+    }
   }
   function valide(r) {
     return r && typeof r.id === "string" && r.titre && r.rendement && r.rendement.valeur > 0 && Array.isArray(r.ingredients) && Array.isArray(r.etapes);
   }
   function chargerAjouts() {
     if (!window.fetch) return;
-    fetch(window.Ajout.FICHIER, { cache: "no-store" })
-      .then(function (res) { if (!res.ok) throw new Error(res.status); return res.json(); })
-      .catch(function () { return null; }) // hors ligne ou fichier absent : les recettes intégrées suffisent
-      .then(function (liste) {
-        var att = window.Ajout.attente(), ids = {};
-        (Array.isArray(liste) ? liste : []).forEach(function (r) {
-          if (!valide(r) || att.suppr[r.id]) return;
-          r.infos = r.infos || {}; r.sousTitre = r.sousTitre || "";
-          ids[r.id] = 1; integrer(r);
-        });
-        // envoyées depuis ce téléphone il y a peu, pas encore publiées par GitHub Pages
-        Object.keys(att.ajouts).forEach(function (id) { if (valide(att.ajouts[id])) integrer(att.ajouts[id]); });
-        Object.keys(att.suppr).forEach(retirer);
-        if (lastRoute === "home") {
-          if (/^#\/(recette|modifier)\//.test(location.hash)) route(); else { renderChips(); renderList(); }
-        }
+    function jsonDe(url) {
+      return fetch(url, { cache: "no-store" })
+        .then(function (res) { if (!res.ok) throw new Error(res.status); return res.json(); })
+        .catch(function () { return null; });
+    }
+    Promise.all([jsonDe(window.Ajout.FICHIER), jsonDe(window.Ajout.FICHIER_MASQUEES)]).then(function (res) {
+      var liste = res[0], masquees = res[1];
+      var att = window.Ajout.attente();
+      var masq = {};
+      (Array.isArray(masquees) ? masquees : []).forEach(function (id) { if (typeof id === "string" && id) masq[id] = 1; });
+      Object.keys(att.suppr).forEach(function (id) { masq[id] = 1; });
+      IDS_MASQUEES = masq;
+      (Array.isArray(liste) ? liste : []).forEach(function (r) {
+        if (!valide(r) || masq[r.id]) return;
+        r.infos = r.infos || {}; r.sousTitre = r.sousTitre || "";
+        integrer(r); // même id qu'une recette intégrée → surcharge
       });
+      // envoyées depuis ce téléphone il y a peu, pas encore publiées par GitHub Pages
+      Object.keys(att.ajouts).forEach(function (id) {
+        if (masq[id]) return;
+        if (valide(att.ajouts[id])) integrer(att.ajouts[id]);
+      });
+      Object.keys(masq).forEach(retirer);
+      if (/^#\/(recette|modifier)\//.test(location.hash)) route();
+      else if (lastRoute === "home") { renderChips(); renderList(); }
+    });
   }
 
   /* ---------------- routeur ---------------- */
@@ -359,11 +372,18 @@
   function route() {
     var h = location.hash || "#/";
     if (lastRoute === "home") homeState.scroll = window.scrollY;
-    if (h === "#/ajouter" || /^#\/modifier\//.test(h)) {
-      var mod = h.match(/^#\/modifier\/([\w-]+)/), rm = mod && byId(mod[1]);
-      if (!mod || (rm && rm._ajout)) {
+    if (h === "#/ajouter") {
+      lastRoute = "form"; btnBack.hidden = false;
+      window.Ajout.renderForm(app, null);
+      window.scrollTo(0, 0);
+      return;
+    }
+    var mod = h.match(/^#\/modifier\/([\w-]+)/);
+    if (mod) {
+      var rm = byId(mod[1]);
+      if (rm) {
         lastRoute = "form"; btnBack.hidden = false;
-        window.Ajout.renderForm(app, rm || null);
+        window.Ajout.renderForm(app, rm);
         window.scrollTo(0, 0);
         return;
       }
@@ -389,7 +409,11 @@
     location.hash = m ? "#/recette/" + m[1] : "#/";
   });
   window.addEventListener("hashchange", route);
-  window.Ajout.init({ esc: esc, norm: norm, byId: byId, recettes: RECETTES, categories: CATEGORIES, route: route, integrer: integrer });
+  window.Ajout.init({
+    esc: esc, norm: norm, byId: byId, recettes: RECETTES, categories: CATEGORIES, route: route, integrer: integrer,
+    estIntegre: function (id) { return !!IDS_INTEGREES[id]; },
+    estMasquee: function (id) { return !!IDS_MASQUEES[id]; }
+  });
   route();
   chargerAjouts();
 

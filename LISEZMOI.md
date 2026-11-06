@@ -4,10 +4,11 @@ Site statique (HTML/CSS/JS), installable sur iPhone et utilisable hors ligne.
 
 ## Structure
 - `index.html` – page unique
-- `js/recettes.js` – **toutes les recettes** (un bloc par recette, format décrit en tête du fichier)
-- `data/recettes-ajoutees.json` – recettes ajoutées depuis le téléphone (liste JSON, même format que `recettes.js`)
-- `js/app.js` – affichage, recherche, filtres, calcul des quantités, chargement du fichier JSON
-- `js/ajout.js` – formulaire « Ajouter une recette », modification / suppression, envoi vers GitHub
+- `js/recettes.js` – **recettes intégrées** (un bloc par recette, format décrit en tête du fichier)
+- `data/recettes-ajoutees.json` – recettes ajoutées depuis le téléphone, et surcharges des recettes intégrées (même id)
+- `data/recettes-masquees.json` – ids des recettes intégrées masquées (« supprimées » depuis le téléphone)
+- `js/app.js` – affichage, recherche, filtres, calcul des quantités, fusion des JSON au chargement
+- `js/ajout.js` – formulaire « Ajouter / Modifier une recette », suppression (avec confirmation), envoi vers GitHub
 - `css/style.css` – styles (écran + impression/PDF)
 - `img/` – photos extraites des fiches PDF
 - `icons/` – icônes de l'application
@@ -18,8 +19,16 @@ Bouton « Ajouter une recette » sur l'accueil → formulaire (`#/ajouter`). À 
 directement dans le dépôt GitHub via l'API « Contents » :
 - la photo (redimensionnée à 1200 px, JPEG) dans `img/ajout-<id>.jpg` ;
 - la recette ajoutée à la liste de `data/recettes-ajoutees.json` (commit « Ajout recette : <titre> »).
-GitHub Pages republie le site en 1 à 2 minutes. Les recettes de ce fichier ont aussi les boutons
-« Modifier » et « Supprimer ».
+GitHub Pages republie le site en 1 à 2 minutes.
+
+Toutes les fiches (intégrées ou ajoutées) ont les boutons **Modifier** et **Supprimer**.
+La suppression demande toujours confirmation (« Supprimer « … » du livre ? Cette action est définitive. »).
+
+- Recette ajoutée (`recettes-ajoutees.json` seulement) : retirée de ce fichier, photo `img/ajout-<id>.jpg` effacée.
+- Recette intégrée (`js/recettes.js`) : son id est ajouté à `data/recettes-masquees.json` (le fichier JS n'est pas
+  réécrit depuis le téléphone). Si une surcharge existait dans `recettes-ajoutees.json`, elle est aussi retirée,
+  pour que l'originale ne réapparaisse pas.
+- Modifier une recette intégrée enregistre une surcharge dans `recettes-ajoutees.json` (même id).
 
 Il faut un **jeton GitHub** (fine-grained personal access token), saisi une fois dans « Réglages GitHub »
 du formulaire et gardé uniquement dans le téléphone (localStorage, jamais dans le dépôt) :

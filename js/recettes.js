@@ -17,14 +17,14 @@
  *   ingrédient precis: true → arrondi au dixième de gramme (ex. levure)
  *   calcul : true → recette « calculateur » (quantités toujours calculées, règle de la fiche affichée en dessous)
  *
- * Recettes ajoutées depuis le téléphone (bouton « Ajouter une recette ») :
- *   elles ne sont PAS dans ce fichier mais dans data/recettes-ajoutees.json : une liste JSON [ {...}, ... ]
- *   d'objets au même format (id, titre, sousTitre, categorie, image, infos, rendement, ingredients, etapes).
- *   Le formulaire écrit ce fichier via l'API GitHub (commits « Ajout recette : … ») et les photos dans
- *   img/ajout-<id>.jpg. L'application le charge au démarrage et l'ajoute à window.RECETTES (un id déjà
- *   présent ici est ignoré). Seules ces recettes ont les boutons « Modifier » / « Supprimer ».
- *   On peut aussi l'éditer à la main (JSON valide : guillemets doubles, pas de virgule finale), ou déplacer
- *   une recette de ce fichier vers recettes.js pour l'intégrer définitivement (la retirer alors du JSON).
+ * Recettes ajoutées ou modifiées depuis le téléphone (bouton « Ajouter une recette » / « Modifier ») :
+ *   data/recettes-ajoutees.json : liste JSON [ {...}, ... ] au même format.
+ *   Fusion au chargement : ce fichier (RECETTES) → un même id dans recettes-ajoutees.json le remplace
+ *   (surcharge, sans réécrire ce JS) → les ids de data/recettes-masquees.json sont retirés (recettes
+ *   intégrées « supprimées » depuis le téléphone). Toutes les fiches ont « Modifier » et « Supprimer ».
+ *   Le formulaire écrit recettes-ajoutees.json via l'API GitHub et les photos dans img/ajout-<id>.jpg.
+ *   On peut aussi l'éditer à la main (JSON valide), ou déplacer une recette vers ce fichier pour
+ *   l'intégrer définitivement (la retirer alors du JSON, et de recettes-masquees.json si elle y est).
  */
 window.RECETTES = [];
 window.CATEGORIES = ["Entrées", "Plats", "Desserts", "Boulangerie", "Bases"];

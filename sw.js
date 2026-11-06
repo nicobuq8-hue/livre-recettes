@@ -1,5 +1,5 @@
 /* Service worker — généré par build-sw.py (ne pas modifier à la main) */
-const CACHE = "livre-recettes-1c0f3ef42b";
+const CACHE = "livre-recettes-41e37d4f6f";
 const ASSETS = [
   "./",
   "index.html",
@@ -13,6 +13,7 @@ const ASSETS = [
   "icons/icon-192.png",
   "icons/icon-512.png",
   "icons/icon-maskable-512.png",
+  "img/ajout-navettes.jpg",
   "img/boeuf-marrons.jpg",
   "img/boudin-blanc.jpg",
   "img/brioche.jpg",
@@ -39,7 +40,8 @@ const ASSETS = [
   "img/tarte-citron-meringuee.jpg",
   "img/terrine-deux-poissons.jpg",
   "img/terrine-saumon.jpg",
-  "data/recettes-ajoutees.json"
+  "data/recettes-ajoutees.json",
+  "data/recettes-masquees.json"
 ];
 
 self.addEventListener("install", (event) => {
