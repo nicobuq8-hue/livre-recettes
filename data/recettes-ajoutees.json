@@ -266,5 +266,161 @@
       ]
     ],
     "calcul": true
+  },
+  {
+    "id": "blanquette-de-veau",
+    "titre": "Blanquette de veau",
+    "sousTitre": "",
+    "categorie": "Plats",
+    "image": null,
+    "infos": {
+      "parts": "6 personnes",
+      "preparation": "35 min",
+      "cuisson": "2 h 15",
+      "temperature": "Non précisé"
+    },
+    "rendement": {
+      "valeur": 6,
+      "unite": "personnes",
+      "uniteSing": "personne",
+      "pas": 1,
+      "min": 1
+    },
+    "ingredients": [
+      {
+        "t": "1 kg de veau (épaule, collier…)",
+        "q": 1,
+        "u": "kg",
+        "l": "de veau (épaule, collier…)"
+      },
+      {
+        "t": "3 L d'eau",
+        "q": 3,
+        "u": "L",
+        "l": "d'eau"
+      },
+      {
+        "t": "2 branche de thym frais",
+        "q": 2,
+        "u": "branche",
+        "l": "de thym frais"
+      },
+      {
+        "t": "1 feuille de laurier frais",
+        "q": 1,
+        "u": "feuille",
+        "l": "de laurier frais"
+      },
+      {
+        "t": "4 carottes",
+        "q": 4,
+        "l": "carottes"
+      },
+      {
+        "t": "2 oignons",
+        "q": 2,
+        "l": "oignons"
+      },
+      {
+        "t": "0,5 poireau",
+        "q": 0.5,
+        "l": "poireau"
+      },
+      {
+        "t": "3 gousse d'ail",
+        "q": 3,
+        "u": "gousse",
+        "l": "d'ail"
+      },
+      {
+        "t": "1 de jus de citron",
+        "q": 1,
+        "l": "de jus de citron"
+      },
+      {
+        "t": "10 brin de ciboulette fraîche",
+        "q": 10,
+        "u": "brin",
+        "l": "de ciboulette fraîche"
+      },
+      {
+        "t": "300 g de champignons de Paris",
+        "q": 300,
+        "u": "g",
+        "l": "de champignons de Paris"
+      },
+      {
+        "t": "1 c. à soupe d'huile de tournesol",
+        "q": 1,
+        "u": "c. à soupe",
+        "l": "d'huile de tournesol"
+      },
+      {
+        "t": "60 g de beurre",
+        "q": 60,
+        "u": "g",
+        "l": "de beurre"
+      },
+      {
+        "t": "60 g de farine",
+        "q": 60,
+        "u": "g",
+        "l": "de farine"
+      },
+      {
+        "t": "20 cl de crème liquide",
+        "q": 20,
+        "u": "cl",
+        "l": "de crème liquide"
+      },
+      {
+        "t": "Gros sel"
+      },
+      {
+        "t": "Poivre"
+      }
+    ],
+    "etapes": [
+      [
+        "Cuire le veau",
+        "Taillez le veau en gros cubes réguliers, puis placez-les dans une marmite avec l'eau, le thym et le laurier. Faites chauffer en écumant de temps en temps."
+      ],
+      [
+        "Préparer les légumes",
+        "Pendant ce temps, épluchez les carottes et les oignons. Taillez les carottes en deux et les oignons en quatre. Taillez le poireau en deux. Épluchez les gousses d'ail, dégermez-les puis écrasez-les."
+      ],
+      [
+        "Ajouter les légumes",
+        "Ajoutez tous les légumes (sauf les champignons) et le jus du citron dans la marmite, puis laissez mijoter 1 h 30."
+      ],
+      [
+        "Préparer les champignons",
+        "Pendant ce temps, lavez les champignons puis taillez-les en quatre ou en six selon leur taille."
+      ],
+      [
+        "Faire revenir les champignons",
+        "Faites chauffer l'huile dans une poêle, puis faites-y revenir les champignons. Réservez-les en conservant leur jus de cuisson."
+      ],
+      [
+        "Récupérer la viande et les légumes",
+        "Lorsque la viande et les légumes sont cuits, récupérez-les et réservez-les dans un plat. Filtrez leur jus de cuisson. Récupérez les carottes puis taillez-les en rondelles."
+      ],
+      [
+        "Préparer la sauce",
+        "Faites fondre le beurre dans une grande casserole, puis ajoutez la farine. Faites chauffer en fouettant jusqu'à l'obtention d'un roux. Ajoutez 70 cl de jus de cuisson de la viande, puis faites cuire sur feu doux et en fouettant jusqu'à l'obtention d'une sauce liée (couleur brune)."
+      ],
+      [
+        "Réduire le jus de cuisson",
+        "Versez le reste du jus de cuisson dans une casserole et faites-le réduire de moitié."
+      ],
+      [
+        "Incorporer la crème",
+        "Dans un cul-de-poule ou le bol d'un batteur, fouettez la crème jusqu'à ce qu'elle soit bien ferme. Incorporez-la ensuite à la sauce liée, puis ajoutez le jus de cuisson réduit des champignons."
+      ],
+      [
+        "Dresser et servir",
+        "Déposez la viande et les légumes dans un plat, versez la sauce dessus et parsemez de ciboulette ciselée."
+      ]
+    ]
   }
 ]
