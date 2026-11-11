@@ -422,5 +422,121 @@
         "Déposez la viande et les légumes dans un plat, versez la sauce dessus et parsemez de ciboulette ciselée."
       ]
     ]
+  },
+  {
+    "id": "pate-de-tete-de-porc",
+    "titre": "Pâté de tête de porc",
+    "sousTitre": "fromage de tête persillé",
+    "categorie": "Entrées",
+    "image": "img/ajout-pate-de-tete-de-porc.jpg",
+    "infos": {
+      "parts": "8-12 personnes",
+      "preparation": "Non précisé",
+      "cuisson": "2 h 30 à 3 h",
+      "temperature": "Non précisé"
+    },
+    "rendement": {
+      "valeur": 10,
+      "unite": "personnes",
+      "uniteSing": "personne",
+      "pas": 1,
+      "min": 1
+    },
+    "ingredients": [
+      {
+        "t": "0,5 de tête de porc",
+        "q": 0.5,
+        "l": "de tête de porc"
+      },
+      {
+        "t": "1 de langue de porc",
+        "q": 1,
+        "l": "de langue de porc"
+      },
+      {
+        "t": "1 pied de porc Pied de porc",
+        "q": 1,
+        "u": "pied de porc",
+        "l": "Pied de porc"
+      },
+      {
+        "t": "5 pieces d’échalotes",
+        "q": 5,
+        "u": "pieces",
+        "l": "d’échalotes"
+      },
+      {
+        "t": "5 gousse d’ail",
+        "q": 5,
+        "u": "gousse",
+        "l": "d’ail"
+      },
+      {
+        "t": "1 bouquet de persil frais",
+        "q": 1,
+        "u": "bouquet",
+        "l": "de persil frais"
+      },
+      {
+        "t": "0,5 bouteille de vin blanc sec",
+        "q": 0.5,
+        "u": "bouteille",
+        "l": "de vin blanc sec"
+      },
+      {
+        "t": "2 de carottes",
+        "q": 2,
+        "l": "de carottes"
+      },
+      {
+        "t": "1 d’oignon",
+        "q": 1,
+        "l": "d’oignon"
+      },
+      {
+        "t": "1 de bouquet garni (thym + laurier)",
+        "q": 1,
+        "l": "de bouquet garni (thym + laurier)"
+      },
+      {
+        "t": "2 c. à soupe de vinaigre",
+        "q": 2,
+        "u": "c. à soupe",
+        "l": "de vinaigre"
+      },
+      {
+        "t": "Sel, poivre, un peu de 4-épices"
+      }
+    ],
+    "etapes": [
+      [
+        "Nettoyage",
+        "Rincez bien la ½ tête, la langue et le pied. Vous pouvez faire tremper la tête 1 h dans de l’eau + un peu de vinaigre puis rincer à nouveau."
+      ],
+      [
+        "Bouillon de cuisson",
+        "Dans une grande marmite, mettez le pied de porc, les carottes, l’oignon piqué de clous de girofle, les gousses d’ail en chemise, le bouquet garni, le vin blanc, le vinaigre, du sel, du poivre et du 4-épices. Couvrez largement d’eau (environ 2 litres) et faites cuire 45-60 min."
+      ],
+      [
+        "Cuisson des viandes",
+        "Ajoutez les morceaux de tête. Faites frémir doucement (écumez au début). Comptez environ 2 h 30 à 3 h au total. Ajoutez la langue 30-45 min avant la fin. C’est cuit quand la viande se détache facilement des os."
+      ],
+      [
+        "Désossage",
+        "Sortez les viandes et laissez-les tiédir. Désossez soigneusement la tête et le pied. Pelez la langue. Coupez tout en morceaux plus ou moins gros au couteau. Récupérez aussi les parties gélatineuses."
+      ],
+      [
+        "Assaisonnement",
+        "Ciselez finement les échalotes et faites-les suer dans un peu de beurre, puis déglacez avec un peu de vin blanc et laissez réduire. Hachez généreusement le persil et l’ail. Mélangez la viande avec les échalotes, une partie du persil, l’ail, un peu de poivre et rectifiez le sel. (Gardez une partie du persil haché de côté pour le fond de terrine.)"
+      ],
+      [
+        "Montage de la terrine",
+        "Filtrez et dégraissez le bouillon, puis faites-le réduire un peu. Versez un peu de jus réduit au fond de la terrine. Répartissez une couche de persil haché sur ce jus. Déposez ensuite la viande assaisonnée par-dessus. Terminez en versant le reste du jus réduit pour bien imbiber le tout. Ne tassez pas trop fort."
+      ],
+      [
+        "Prise au froid",
+        "Laissez refroidir à température ambiante, puis mettez au réfrigérateur au moins 12 h (idéalement 24-48 h) pour que la gelée prenne bien."
+      ]
+    ]
   }
 ]
