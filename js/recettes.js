@@ -369,7 +369,7 @@ RECETTES.push(
     { t: "Lait demi-écrémé aromatisé : 50 %", q: 500, u: "g", l: "de lait demi-écrémé aromatisé" },
     { t: "Crème fraîche de ferme pour compenser la perte de lait évaporée" },
     { t: "Oignon cuit au beurre et singé à la Maïzena : 12 %", q: 120, u: "g", l: "d'oignon cuit au beurre et singé à la Maïzena" },
-    { t: "Maïzena pour singer : 4 %", q: 40, u: "g", l: "de Maïzena pour singer" },
+    { t: "Maïzena pour singer : 100 g pour 5 kg de préparation", q: 39.6, u: "g", l: "de Maïzena pour singer" },
     { t: "Œufs entiers : 25 %, soit environ 1 œuf pour 50 g", q: 250, u: "g", l: "d'œufs entiers", oeufsPour: 50 },
     { g: "Épicerie (sur la masse totale de la préparation)" },
     { t: "Sel fin : 1,5 %", q: 29.7, u: "g", l: "de sel fin" },
