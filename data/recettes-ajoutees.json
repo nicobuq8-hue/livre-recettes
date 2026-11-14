@@ -130,13 +130,13 @@
         "g": "Viande"
       },
       {
-        "t": "Maigre 75 % : épaule de veau, poitrine de porc ou volaille",
+        "t": "750 g de maigre (épaule de veau, poitrine de porc ou volaille)",
         "q": 750,
         "u": "g",
         "l": "de maigre (épaule de veau, poitrine de porc ou volaille)"
       },
       {
-        "t": "Gras 25 % : gorge de porc ou poitrine grasse",
+        "t": "250 g de gras (gorge de porc ou poitrine grasse)",
         "q": 250,
         "u": "g",
         "l": "de gras (gorge de porc ou poitrine grasse)"
@@ -145,13 +145,13 @@
         "g": "Farce"
       },
       {
-        "t": "Mie de pain : 23 %",
+        "t": "230 g de mie de pain",
         "q": 230,
         "u": "g",
         "l": "de mie de pain"
       },
       {
-        "t": "Lait demi-écrémé aromatisé : 50 %",
+        "t": "500 g de lait demi-écrémé aromatisé",
         "q": 500,
         "u": "g",
         "l": "de lait demi-écrémé aromatisé"
@@ -160,19 +160,19 @@
         "t": "Crème fraîche de ferme pour compenser la perte de lait évaporée"
       },
       {
-        "t": "Oignon cuit au beurre et singé à la Maïzena : 12 %",
+        "t": "120 g d'oignon cuit au beurre et singé à la Maïzena",
         "q": 120,
         "u": "g",
         "l": "d'oignon cuit au beurre et singé à la Maïzena"
       },
       {
-        "t": "Maïzena pour singer : 4 %",
+        "t": "40 g de Maïzena pour singer",
         "q": 40,
         "u": "g",
         "l": "de Maïzena pour singer"
       },
       {
-        "t": "Œufs entiers : 25 %, soit environ 1 œuf pour 50 g",
+        "t": "250 g d'œufs entiers",
         "q": 250,
         "u": "g",
         "l": "d'œufs entiers",
@@ -182,46 +182,46 @@
         "g": "Épicerie (sur la masse totale de la préparation)"
       },
       {
-        "t": "Sel fin : 1,5 %",
+        "t": "29,7 g de sel fin",
         "q": 29.7,
         "u": "g",
         "l": "de sel fin"
       },
       {
-        "t": "Poivre blanc : 0,25 %",
+        "t": "4,95 g de poivre blanc",
         "q": 4.95,
         "u": "g",
         "l": "de poivre blanc",
         "precis": true
       },
       {
-        "t": "Quatre-épices : 0,1 % — optionnel",
+        "t": "1,98 g de quatre-épices — optionnel",
         "q": 1.98,
         "u": "g",
         "l": "de quatre-épices — optionnel",
         "precis": true
       },
       {
-        "t": "Noix de muscade : 0,1 % — optionnelle",
+        "t": "1,98 g de noix de muscade — optionnelle",
         "q": 1.98,
         "u": "g",
         "l": "de noix de muscade — optionnelle",
         "precis": true
       },
       {
-        "t": "Porto blanc, cognac ou madère : 0,25 % — optionnel",
+        "t": "4,95 cl de porto blanc, cognac ou madère — optionnel",
         "q": 4.95,
         "u": "cl",
         "l": "de porto blanc, cognac ou madère — optionnel"
       },
       {
-        "t": "Truffe : minimum 3 % pour l'appellation truffée — optionnelle",
+        "t": "59,4 g de truffe au minimum — optionnelle, pour l'appellation truffée",
         "q": 59.4,
         "u": "g",
         "l": "de truffe au minimum — optionnelle, pour l'appellation truffée"
       },
       {
-        "t": "Boyaux",
+        "t": "2,38 m de boyau (environ 15 cm par boudin de 125 g)",
         "q": 2.38,
         "u": "m",
         "l": "de boyau (environ 15 cm par boudin de 125 g)"
@@ -230,11 +230,11 @@
     "etapes": [
       [
         "Infuser le lait + déssaler  boyaux",
-        "Mettre le lait dans une casserole avec les carottes et les oignons coupés en gros morceaux ainsi que le bouquet garni. Porter juste à ébullition, puis laisser infuser 10 à 15 minutes à feu doux. Filtrer, puis peser le lait filtré afin de calculer la quantité de crème à ajouter. Reserver"
+        "Mettre le lait dans une casserole avec les carottes et les oignons coupés en gros morceaux ainsi que le bouquet garni, éventuellement un os de porc récupéré sur la palette ou le plat de côte .Porter juste à ébullition, puis laisser infuser 10 à 15 minutes à feu doux. Filtrer, puis peser le lait filtré afin de calculer la quantité de crème à ajouter. Reserver"
       ],
       [
         "Préparer les aromates",
-        "Émincer finement les échalotes ou l'oignon. Les faire suer doucement dans le beurre sans coloration jusqu'à transparence. En fin de cuisson, saupoudrer la Maïzena et mélanger 1 à 2 minutes pour singer les aromates et former un liant, puis réserver."
+        "Émincer finement les échalotes ou l'oignon. Les faire suer doucement dans le beurre sans coloration jusqu'à transparence. En fin de cuisson, saupoudrer la Maïzena et mélanger 1 à 2 minutes pour singer les aromates et former un liant, ajouter de l’eau pour diluer la maïzena , cuire jusqu’à évaporation de l’eau , puis réserver."
       ],
       [
         "Préparer la panade",
