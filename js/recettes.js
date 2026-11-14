@@ -376,7 +376,7 @@ RECETTES.push(
     { t: "Poivre blanc : 0,25 %", q: 4.95, u: "g", precis: true, l: "de poivre blanc" },
     { t: "Quatre-épices : 0,1 % — optionnel", q: 1.98, u: "g", precis: true, l: "de quatre-épices — optionnel" },
     { t: "Noix de muscade : 0,1 % — optionnelle", q: 1.98, u: "g", precis: true, l: "de noix de muscade — optionnelle" },
-    { t: "Porto blanc, cognac ou madère : 0,25 % — optionnel", q: 4.95, u: "cl", l: "de porto blanc, cognac ou madère — optionnel" },
+    { t: "Porto blanc, cognac ou madère : 100 g pour 5 kg de préparation — optionnel", q: 39.6, u: "g", l: "de porto blanc, cognac ou madère — optionnel" },
     { t: "Truffe : minimum 3 % pour l'appellation truffée — optionnelle", q: 59.4, u: "g", l: "de truffe au minimum — optionnelle, pour l'appellation truffée" },
     { t: "Boyaux", q: 2.38, u: "m", l: "de boyau (environ 15 cm par boudin de 125 g)" }
   ],
