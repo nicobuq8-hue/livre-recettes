@@ -601,6 +601,12 @@
         "l": "de vinaigre de vin (facultatif)"
       },
       {
+        "t": "Vin blanc sec",
+        "q": 20,
+        "u": "cl",
+        "l": "de vin blanc sec"
+      },
+      {
         "t": "Gros sel, poivre en grains"
       },
       {
@@ -653,12 +659,6 @@
       },
       {
         "t": "Sel, poivre"
-      },
-      {
-        "t": "20 cl Vin blanc sec",
-        "q": 20,
-        "u": "cl",
-        "l": "Vin blanc sec"
       }
     ],
     "etapes": [
