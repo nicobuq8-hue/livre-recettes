@@ -538,5 +538,141 @@
         "Laissez refroidir à température ambiante, puis mettez au réfrigérateur au moins 12 h (idéalement 24-48 h) pour que la gelée prenne bien."
       ]
     ]
+  },
+  {
+    "id": "tete-de-veau-sauce-gribiche",
+    "titre": "Tête de veau sauce gribiche",
+    "sousTitre": "",
+    "categorie": "Plats",
+    "image": "img/ajout-tete-de-veau-sauce-gribiche.jpg",
+    "infos": {
+      "parts": "4 personnes",
+      "preparation": "Non précisé",
+      "cuisson": "2 h",
+      "temperature": "Non précisé"
+    },
+    "rendement": {
+      "valeur": 4,
+      "unite": "personnes",
+      "uniteSing": "personne",
+      "pas": 1,
+      "min": 1
+    },
+    "ingredients": [
+      {
+        "g": "Pour la tête de veau"
+      },
+      {
+        "t": "1 1,5 kg tête de veau désossée et roulée (environ 1 à 1,5 kg), déjà préparée par le boucher",
+        "q": 1,
+        "u": "1,5 kg",
+        "l": "tête de veau désossée et roulée (environ 1 à 1,5 kg), déjà préparée par le boucher"
+      },
+      {
+        "t": "2 carottes",
+        "q": 2,
+        "l": "carottes"
+      },
+      {
+        "t": "1 oignon",
+        "q": 1,
+        "l": "oignon"
+      },
+      {
+        "t": "1 gousse d’ail",
+        "q": 1,
+        "u": "gousse",
+        "l": "d’ail"
+      },
+      {
+        "t": "1 bouquet garni (thym, laurier, persil)",
+        "q": 1,
+        "l": "bouquet garni (thym, laurier, persil)"
+      },
+      {
+        "t": "1 c. à soupe de farine (facultatif, pour un bouillon plus velouté)",
+        "q": 1,
+        "u": "c. à soupe",
+        "l": "de farine (facultatif, pour un bouillon plus velouté)"
+      },
+      {
+        "t": "10 cl de vinaigre de vin (facultatif)",
+        "q": 10,
+        "u": "cl",
+        "l": "de vinaigre de vin (facultatif)"
+      },
+      {
+        "t": "Gros sel, poivre en grains"
+      },
+      {
+        "t": "Eau froide"
+      },
+      {
+        "g": "Pour la sauce gribiche"
+      },
+      {
+        "t": "2 œufs durs",
+        "q": 2,
+        "l": "œufs durs"
+      },
+      {
+        "t": "1 c. à soupe de moutarde de Dijon",
+        "q": 1,
+        "u": "c. à soupe",
+        "l": "de moutarde de Dijon"
+      },
+      {
+        "t": "20 cl d’huile neutre (tournesol ou arachide)",
+        "q": 20,
+        "u": "cl",
+        "l": "d’huile neutre (tournesol ou arachide)"
+      },
+      {
+        "t": "1 c. à soupe de vinaigre de vin blanc",
+        "q": 1,
+        "u": "c. à soupe",
+        "l": "de vinaigre de vin blanc"
+      },
+      {
+        "t": "4 cornichons",
+        "q": 4,
+        "l": "cornichons"
+      },
+      {
+        "t": "1 c. à soupe de câpres",
+        "q": 1,
+        "u": "c. à soupe",
+        "l": "de câpres"
+      },
+      {
+        "t": "Fines herbes : persil, ciboulette, estragon et/ou cerfeuil"
+      },
+      {
+        "t": "1 échalote (facultatif)",
+        "q": 1,
+        "l": "échalote (facultatif)"
+      },
+      {
+        "t": "Sel, poivre"
+      }
+    ],
+    "etapes": [
+      [
+        "Préparer la tête de veau",
+        "Rincez la tête de veau sous l’eau froide. Pour une viande plus blanche, vous pouvez la frotter avec un demi-citron. Épluchez les légumes et l’ail. Piquez un oignon de clous de girofle si vous le souhaitez."
+      ],
+      [
+        "Cuire la tête de veau",
+        "Placez la tête dans une grande marmite et couvrez largement d’eau froide. Ajoutez les carottes, l’oignon, l’ail, le bouquet garni, le vinaigre (si utilisé), le sel et le poivre. Délayez éventuellement la farine dans un peu d’eau et versez-la dans la marmite. Portez à ébullition, écumez, puis baissez le feu. Laissez mijoter à très petits frémissements (jamais à gros bouillons) pendant 2 h à 3 h, jusqu’à ce que la viande soit très tendre (une lame doit s’enfoncer facilement)."
+      ],
+      [
+        "Préparer la sauce gribiche",
+        "Écalez les œufs durs. Écrasez les jaunes et hachez les blancs. Dans un bol, mélangez les jaunes avec la moutarde et le vinaigre. Salez et poivrez. Montez la sauce comme une mayonnaise en versant l’huile en filet tout en fouettant. Incorporez ensuite les blancs d’œufs hachés, les cornichons et câpres finement coupés, l’échalote ciselée et les fines herbes. Ajustez l’assaisonnement. Réservez au frais."
+      ],
+      [
+        "Dresser et servir",
+        "Égouttez la tête de veau, découpez-la en tranches épaisses et servez-la bien chaude (ou tiède) nappée de sauce gribiche. Accompagnez traditionnellement de pommes de terre vapeur (ou à l’anglaise) et éventuellement de légumes."
+      ]
+    ]
   }
 ]
