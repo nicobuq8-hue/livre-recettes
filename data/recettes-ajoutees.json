@@ -653,6 +653,12 @@
       },
       {
         "t": "Sel, poivre"
+      },
+      {
+        "t": "20 cl Vin blanc sec",
+        "q": 20,
+        "u": "cl",
+        "l": "Vin blanc sec"
       }
     ],
     "etapes": [
@@ -662,7 +668,7 @@
       ],
       [
         "Cuire la tête de veau",
-        "Placez la tête dans une grande marmite et couvrez largement d’eau froide. Ajoutez les carottes, l’oignon, l’ail, le bouquet garni, le vinaigre (si utilisé), le sel et le poivre. Délayez éventuellement la farine dans un peu d’eau et versez-la dans la marmite. Portez à ébullition, écumez, puis baissez le feu. Laissez mijoter à très petits frémissements (jamais à gros bouillons) pendant 2 h à 3 h, jusqu’à ce que la viande soit très tendre (une lame doit s’enfoncer facilement)."
+        "Placez la tête dans une grande marmite et couvrez largement d’eau froide. Ajoutez les carottes, l’oignon, l’ail, le bouquet garni, le vinaigre (si utilisé), le vin blanc,  le sel et le poivre. Délayez éventuellement la farine dans un peu d’eau et versez-la dans la marmite. Portez à ébullition, écumez, puis baissez le feu. Laissez mijoter à très petits frémissements (jamais à gros bouillons) pendant 2 h à 3 h, jusqu’à ce que la viande soit très tendre (une lame doit s’enfoncer facilement)."
       ],
       [
         "Préparer la sauce gribiche",
